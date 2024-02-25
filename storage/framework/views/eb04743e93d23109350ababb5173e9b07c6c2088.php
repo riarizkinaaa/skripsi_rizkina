@@ -32,12 +32,11 @@
                         <div class="mb-3 row">
                             <label for="" class="col-sm-3 col-form-label">Pendata</label>
                             <div class="col-sm-9">
-                                <?php echo Form::select('survior', $survior, null, [
+                                <?php echo Form::select('kecamatan', $kecamatan, null, [
                                     'class' => 'js-example-basic-single',
-                                    'placeholder' => 'Pilih survior',
-                                    'id' => 'survior-select' // tambahkan id di sini
-                                ]); ?>
-
+                                    'placeholder' => 'pendata di kecamatan',
+                                    'id' => 'kecamatan-select' 
+                                ]); ?>                                
 
                                 <span class="text-danger"><?php echo e($errors->first('survior')); ?></span>
                             </div>
@@ -260,30 +259,34 @@ unset($__errorArgs, $__bag); ?>
 
 <?php $__env->startPush('scripts'); ?>
 
-   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var surviorSelect = document.getElementById('survior-select');
+<script>
+    // Mendengarkan perubahan pada dropdown pendata
+    $('#survior-select').on('change', function() {
+        var surviorId = $(this).val(); // Mendapatkan id_survior dari pendata yang dipilih
 
-        surviorSelect.addEventListener('change', function () {
-            var selectedSurvior = surviorSelect.value;
-
-            // Lakukan permintaan AJAX ke server untuk mendapatkan kecamatan yang sesuai
-            fetch('/superadmin/anak/create') // Perbarui rute di sini
-                .then(response => response.json())
-                .then(data => {
-                    // Perbarui elemen select kecamatan dengan opsi yang diterima dari server
-                    var kecamatanSelect = document.getElementById('kecamatan-select');
-                    kecamatanSelect.innerHTML = '';
-                    data.forEach(function (kecamatan) {
-                        var option = document.createElement('option');
-                        option.text = kecamatan.nama_kecamatan;
-                        option.value = kecamatan.id_kecamatan;
-                        kecamatanSelect.add(option);
-                    });
+        // Mengirimkan request AJAX untuk mendapatkan kecamatan dari pendata yang dipilih
+        $.ajax({
+            url: '<?php echo e(route("anak.getKecamatanBySurvior")); ?>',
+            type: 'GET',
+            data: {
+                id: surviorId
+            },
+            success: function(response) {
+                // Mengganti nilai dropdown kecamatan dengan hasil dari request AJAX
+                $('#kecamatan-select').html('');
+                $('#kecamatan-select').append('<option value="">Pilih kecamatan</option>');
+                $.each(response, function(id, name) {
+                    $('#kecamatan-select').append('<option value="' + id + '">' + name + '</option>');
                 });
+            },
+            error: function(xhr) {
+                console.log(xhr.responseText);
+            }
         });
     });
 </script>
+
+
 
 
 

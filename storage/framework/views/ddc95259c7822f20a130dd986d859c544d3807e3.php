@@ -167,152 +167,187 @@
 <script src="<?php echo e(asset('assets/js/chart/amchart/animated.js')); ?>"></script>
 
 <script type="text/javascript" src="<?php echo e(asset('assets/js/leaflet/batu_keliang_utara.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('assets/semuafile/batukeliang.js')); ?>"></script>
 <script type="text/javascript" src="<?php echo e(asset('assets/semuafile/praya_tengah.js')); ?>"></script>
 <script type="text/javascript" src="<?php echo e(asset('assets/semuafile/kopang.js')); ?>"></script>
 <script type="text/javascript" src="<?php echo e(asset('assets/semuafile/janapria.js')); ?>"></script>
 <script type="text/javascript" src="<?php echo e(asset('assets/semuafile/jonggat.js')); ?>"></script>
 <script type="text/javascript" src="<?php echo e(asset('assets/semuafile/peringgarata.js')); ?>"></script>
 <script type="text/javascript" src="<?php echo e(asset('assets/semuafile/praya_barat_daya.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('assets/semuafile/praya_barat.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('assets/semuafile/pujut.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('assets/semuafile/praya.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('assets/semuafile/praya_timur.js')); ?>"></script>
 
 <script type="text/javascript">
-        // console.log(data)
-        // -8.6822985,116.2690695,10
-      const map = L.map('map').setView([-8.5546668, 116.025997], 10);
+  const map = L.map('map').setView([-8.5546668, 116.025997], 10);
 
-      const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-      }).addTo(map);
+  const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+  }).addTo(map);
 
-      // control that shows state info on hover
-      const info = L.control();
+  const info = L.control();
 
-      info.onAdd = function (map) {
-        this._div = L.DomUtil.create('div', 'info');
-        this.update();
-        return this._div;
-      };
+  info.onAdd = function (map) {
+      this._div = L.DomUtil.create('div', 'info');
+      this.update();
+      return this._div;
+  };
 
-      info.update = function (props) {
-        const contents = props ? `<b>${props.name}</b><br />${props.density} people / mi<sup>2</sup>` : 'Hover over a state';
-        this._div.innerHTML = `<h4>Jumlah Anak Yatim Piatu di Kab Lombok Tengah</h4>${contents}`;
-      };
+  info.update = function (props) {
+    let contents = 'Hover over a state';
+    if (props) {
+        contents = `<b>${props.name}</b><br />`;
+        if (props.jumlah_anak_yatim !== undefined) {
+            contents += `Jumlah Anak Yatim Piatu: ${props.jumlah_anak_yatim}`;
+        } else {
+            contents += 'Data tidak tersedia';
+        }
+    }
+    this._div.innerHTML = `<h4>Informasi Kecamatan</h4>${contents}`;
+  };
 
-      info.addTo(map);
+  info.addTo(map);
 
-
-      // get color depending on population density value
-      function getColor(d) {
-        return d > 1000 ? '#800026' :
+  function getColor(d) {
+      return d > 1000 ? '#800026' :
           d > 500  ? '#BD0026' :
-          d > 200  ? '#E31A1C' :
-          d > 100  ? '#FC4E2A' :
-          d > 50   ? '#FD8D3C' :
-          d > 20   ? '#FEB24C' :
-          d > 10   ? '#FED976' : '#FFEDA0';
-      }
+              d > 200  ? '#E31A1C' :
+                  d > 100  ? '#FC4E2A' :
+                      d > 50   ? '#FD8D3C' :
+                          d > 20   ? '#FEB24C' :
+                              d > 10   ? '#FED976' : '#FFEDA0';
+  }
 
-      function style(feature) {
-        return {
+  function style(feature) {
+      return {
           weight: 2,
           opacity: 1,
           color: 'white',
           dashArray: '3',
           fillOpacity: 0.7,
-          fillColor: getColor(feature.properties.density)
-        };
-      }
+          fillColor: getColor(feature.properties.jumlah_anak_yatim)
+      };
+  }
 
-      function highlightFeature(e) {
-        const layer = e.target;
+  function highlightFeature(e) {
+      const layer = e.target;
 
-        layer.setStyle({
+      layer.setStyle({
           weight: 5,
           color: '#666',
           dashArray: '',
           fillOpacity: 0.7
-        });
+      });
 
-        layer.bringToFront();
+      layer.bringToFront();
 
-        info.update(layer.feature.properties);
-      }
+      info.update(layer.feature.properties);
+  }
 
-      /* global statesData */
-      
-      const bku = L.geoJson(batu_keliang_utara, {
-        style,
-        onEachFeature
-      }).addTo(map);
-      const prateng = L.geoJson(praya_tengah, {
-        style,
-        onEachFeature
-      }).addTo(map);
-      const kpg = L.geoJson(kopang, {
-        style,
-        onEachFeature
-      }).addTo(map);
-      const jnp = L.geoJson(janapria, {
-        style,
-        onEachFeature
-      }).addTo(map);
-      const prgt = L.geoJson(peringgarata, {
-        style,
-        onEachFeature
-      }).addTo(map);
-      const jgt = L.geoJson(jonggat, {
-        style,
-        onEachFeature
-      }).addTo(map);
-      const pbd = L.geoJson(praya_barat_daya, {
-        style,
-        onEachFeature
-      }).addTo(map);
+  function resetHighlight(e) {
+      const layer = e.target;
+      layer.setStyle({
+          weight: 2,
+          opacity: 1,
+          color: 'white',
+          dashArray: '3',
+          fillOpacity: 0.7,
+          fillColor: getColor(layer.feature.properties.jumlah_anak_yatim)
+      });
+      info.update();
+  }
 
+  function zoomToFeature(e) {
+      map.fitBounds(e.target.getBounds());
+  }
 
-
-      function resetHighlight(e) {
-        geojson.resetStyle(e.target);
-        info.update();
-      }
-
-      function zoomToFeature(e) {
-        map.fitBounds(e.target.getBounds());
-      }
-
-      function onEachFeature(feature, layer) {
-        layer.on({
+  function onEachFeature(feature, layer) {
+      layer.on({
           mouseover: highlightFeature,
           mouseout: resetHighlight,
-          click: zoomToFeature
-        });
-      }
+          click: function(e) {
+              info.update(feature.properties);
+          }
+      });
+  }
 
-      
+  const legend = L.control({position: 'bottomright'});
 
+  legend.onAdd = function (map) {
 
-      const legend = L.control({position: 'bottomright'});
+      const div = L.DomUtil.create('div', 'info legend');
+      const grades = [0, 10, 20, 50, 100, 200, 500, 1000];
+      const labels = [];
+      let from, to;
 
-      legend.onAdd = function (map) {
-
-        const div = L.DomUtil.create('div', 'info legend');
-        const grades = [0, 10, 20, 50, 100, 200, 500, 1000];
-        const labels = [];
-        let from, to;
-
-        for (let i = 0; i < grades.length; i++) {
+      for (let i = 0; i < grades.length; i++) {
           from = grades[i];
           to = grades[i + 1];
 
           labels.push(`<i style="background:${getColor(from + 1)}"></i> ${from}${to ? `&ndash;${to}` : '+'}`);
-        }
+      }
 
-        div.innerHTML = labels.join('<br>');
-        return div;
-      };
+      div.innerHTML = labels.join('<br>');
+      return div;
+  };
 
-      legend.addTo(map);
+  legend.addTo(map);
+
+  // Load GeoJSON data for each kecamatan
+  
+  const bku = L.geoJson(batu_keliang_utara, {
+      style,
+      onEachFeature
+  }).addTo(map);
+  const prateng = L.geoJson(praya_tengah, {
+      style,
+      onEachFeature
+  }).addTo(map);
+  const kpg = L.geoJson(kopang, {
+      style,
+      onEachFeature
+  }).addTo(map);
+  const jnp = L.geoJson(janapria, {
+      style,
+      onEachFeature
+  }).addTo(map);
+  const prgt = L.geoJson(peringgarata, {
+      style,
+      onEachFeature
+  }).addTo(map);
+  const jgt = L.geoJson(jonggat, {
+      style,
+      onEachFeature
+  }).addTo(map);
+  const pbd = L.geoJson(praya_barat_daya, {
+      style,
+      onEachFeature
+  }).addTo(map);
+  const pry = L.geoJson(praya, {
+      style,
+      onEachFeature
+  }).addTo(map);
+  const pujt = L.geoJson(pujut, {
+      style,
+      onEachFeature
+  }).addTo(map);
+  const prt = L.geoJson(praya_timur, {
+      style,
+      onEachFeature
+  }).addTo(map);
+  const prb = L.geoJson(praya_barat, {
+      style,
+      onEachFeature
+  }).addTo(map);
+  const bkl = L.geoJson(batukeliang, {
+      style,
+      onEachFeature
+  }).addTo(map);
+  
 
 </script>
+
 
 <script>
   $(document).ready(function() {
@@ -322,10 +357,11 @@
       dataType: 'json',
       success: function(data) {
         // status anak
-        const anak_dibawah_19_tahun = data['anak'].filter(anak => {
-  const tahunLahir = new Date(anak.tgl_lahir).getFullYear();
-  const tahunIni = new Date().getFullYear();
-  return tahunIni - tahunLahir < 19;
+        const today = new Date();
+const anak_dibawah_19_tahun = data['anak'].filter(anak => {
+    const tahunLahir = new Date(anak.tgl_lahir);
+    const tahunLahirPlus19 = new Date(tahunLahir.getFullYear() + 19, tahunLahir.getMonth(), tahunLahir.getDate());
+    return tahunLahirPlus19 > today; // Filter anak yang masih di bawah 19 tahun
 });
 
 const anak_yatim = anak_dibawah_19_tahun.filter(anak => anak.status_anak == 1);
@@ -479,7 +515,6 @@ function buildChart(data, tahunYangDipilih, batasUsia) {
     data_max.push(kecamatan.length);
   }
 
-  // Sisanya dari kode Anda...
   chart.data = datakec;
   var max = Math.max.apply(null, data_max);
 

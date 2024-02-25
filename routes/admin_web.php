@@ -147,6 +147,8 @@ Route::prefix('superadmin')->middleware('auth', 'cek_login:1')->group(function (
 	// Route::get('/get-kecamatan/{id}', [AdminAnakController::class, 'getKecamatan']);
 	// Route::get('/get-kecamatan-by-survior/{id}', 'App\Http\Controllers\Admin\AnakController@getKecamatanBySurvior');
 	// get data export
+	Route::get('anak/getKecamatanBySurvior', 'App\Http\Controllers\Admin\AnakController@getKecamatanBySurvior')->name('anak.getKecamatanBySurvior');
+
 	Route::get('anakex', [\App\Http\Controllers\Admin\AnakController::class, 'anakex']);
 
 	// get data desa untuk json

@@ -46,7 +46,6 @@ class AnakController extends Controller
 //     ->where('id_kecamatan', $id_kecamatan) // Menyaring berdasarkan id_kecamatan yang dipilih
 //     ->groupBy('id_kecamatan')
 //     ->get();
- 
     
         // akhirnya
 
@@ -89,10 +88,6 @@ class AnakController extends Controller
     ->get();
 
     $data['anakPerKecamatan'] = $anakPerKecamatan;
-
-    
-
-
         return view('superadmin.' . $this->viewIndex, $data);
         // ->with('anakPerKecamatan', $anakPerKecamatan);;
     }
@@ -106,7 +101,7 @@ class AnakController extends Controller
             'title' => 'Tambah Data',
             'survior' => Survior::pluck('nama_lengkap', 'id_survior'),
             'pekerjaan' => Pekerjaan::pluck('pekerjaan', 'id_pekerjaan'),
-            // 'kecamatan' => Kecamatan::pluck('nama_kecamatan', 'id_kecamatan'),
+            'kecamatan' => Kecamatan::pluck('nama_kecamatan', 'id_kecamatan'),
             'pendidikan' => Pendidikan::pluck('pendidikan', 'id_pendidikan'),
             'kelas_pendidikan' => KelasPendidikan::pluck('kelas_pendidikan', 'id_kelas_pendidikan'),
             // 'desa' => Desa::pluck('nama_desa', 'id_desa')
