@@ -167,7 +167,7 @@
 <script src="<?php echo e(asset('assets/js/chart/amchart/animated.js')); ?>"></script>
 
 <script type="text/javascript" src="<?php echo e(asset('assets/js/leaflet/batu_keliang_utara.js')); ?>"></script>
-<script type="text/javascript" src="<?php echo e(asset('assets/semuafile/batukeliang.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('assets/semuafile/batu_keliang.js')); ?>"></script>
 <script type="text/javascript" src="<?php echo e(asset('assets/semuafile/praya_tengah.js')); ?>"></script>
 <script type="text/javascript" src="<?php echo e(asset('assets/semuafile/kopang.js')); ?>"></script>
 <script type="text/javascript" src="<?php echo e(asset('assets/semuafile/janapria.js')); ?>"></script>
@@ -194,29 +194,25 @@
       return this._div;
   };
 
-  info.update = function (props) {
+ info.update = function (props) {
     let contents = 'Hover over a state';
-    if (props) {
-        contents = `<b>${props.name}</b><br />`;
-        if (props.jumlah_anak_yatim !== undefined) {
-            contents += `Jumlah Anak Yatim Piatu: ${props.jumlah_anak_yatim}`;
-        } else {
-            contents += 'Data tidak tersedia';
-        }
+    if (props && props.NAMOBJ) {
+        contents = `<h4>Jumlah Anak Yatim di Kabupeten Lombok Tengah </h4><b>Kecamatan:</b> ${props.NAMOBJ}<br />`;
     }
-    this._div.innerHTML = `<h4>Informasi Kecamatan</h4>${contents}`;
+    this._div.innerHTML = contents;
   };
+
 
   info.addTo(map);
 
   function getColor(d) {
       return d > 1000 ? '#800026' :
-          d > 500  ? '#BD0026' :
-              d > 200  ? '#E31A1C' :
-                  d > 100  ? '#FC4E2A' :
-                      d > 50   ? '#FD8D3C' :
-                          d > 20   ? '#FEB24C' :
-                              d > 10   ? '#FED976' : '#FFEDA0';
+          d > 500 ? '#BD0026' :
+              d > 200 ? '#E31A1C' :
+                  d > 100 ? '#FC4E2A' :
+                      d > 50 ? '#FD8D3C' :
+                          d > 20 ? '#FEB24C' :
+                              d > 10 ? '#FED976' : '#FFEDA0';
   }
 
   function style(feature) {
@@ -263,16 +259,16 @@
   }
 
   function onEachFeature(feature, layer) {
-      layer.on({
-          mouseover: highlightFeature,
-          mouseout: resetHighlight,
-          click: function(e) {
-              info.update(feature.properties);
-          }
-      });
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight,
+        click: function (e) {
+            info.update({ name: feature.properties.NAMOBJ });
+        }
+    });
   }
 
-  const legend = L.control({position: 'bottomright'});
+  const legend = L.control({ position: 'bottomright' });
 
   legend.onAdd = function (map) {
 
@@ -295,7 +291,7 @@
   legend.addTo(map);
 
   // Load GeoJSON data for each kecamatan
-  
+
   const bku = L.geoJson(batu_keliang_utara, {
       style,
       onEachFeature
@@ -340,11 +336,10 @@
       style,
       onEachFeature
   }).addTo(map);
-  const bkl = L.geoJson(batukeliang, {
+  const batkliang = L.geoJson(batu_keliang, {
       style,
       onEachFeature
   }).addTo(map);
-  
 
 </script>
 

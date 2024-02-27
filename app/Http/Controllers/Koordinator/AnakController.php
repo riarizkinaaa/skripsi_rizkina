@@ -87,7 +87,7 @@ class AnakController extends Controller
                 ]);
         } else {
             return redirect()
-                ->route('sudah-verifikasi')
+                ->route('sdh-verifikasi')
                 ->with([
                     'error' => 'Data has been wrong'
                 ]);

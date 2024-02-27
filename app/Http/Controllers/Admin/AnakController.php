@@ -108,12 +108,14 @@ class AnakController extends Controller
         ];
         return view('superadmin.' . $this->viewCreate, $data);
     }
-    public function getKecamatanBySurvior($id)
-{
-    $kecamatan = Kecamatan::where('id_survior', $id)->get();
-
-    return response()->json($kecamatan);
-}
+    public function getKecamatan(Request $request){
+        $surviorId = $request->input('survior');
+        // Ambil data kecamatan berdasarkan pendata yang dipilih
+        dd($request->all());
+        $kecamatan = Survior::where('id_survior', $surviorId)->pluck('nama_kecamatan', 'id_kecamatan');
+        return response()->json($kecamatan);
+    }
+    
 
     public function store(Request $request)
     {
