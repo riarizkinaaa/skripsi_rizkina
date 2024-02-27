@@ -52,7 +52,7 @@
                         <a class="nav-link link-nav menu-title {{routeActive('anak_koordinator.index')}}" href="{{route('anak_koordinator.index')}}"><i data-feather="check-square"></i><span>Verifikasi</span></a>
                     </li>
                     <li class="dropdown">
-                        <a class="nav-link link-nav menu-title {{ request()->routeIs('sudah-verifikasi') ? 'active' : '' }}" href="{{ route('sudah-verifikasi') }}"><i data-feather="users"></i><span>Anak Yatim</span></a>
+                        <a class="nav-link link-nav menu-title {{ request()->routeIs('sdh-verifikasi') ? 'active' : '' }}" href="{{ route('sdh-verifikasi') }}"><i data-feather="users"></i><span>Anak Yatim</span></a>
                     </li>
                 </ul>
 

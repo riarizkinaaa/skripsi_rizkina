@@ -68,9 +68,9 @@ Route::prefix('koordinator')->middleware('auth', 'cek_login:5')->group(function 
 	Route::get('detail-anak/{id}', [\App\Http\Controllers\Koordinator\AnakController::class, 'detail_anak']);
 
 	// verifikasi anak
-	Route::get('verifikasi-anak/{id}', [\App\Http\Controllers\Koordinator\AnakController::class, 'verifikasi_anak'])->name('verifikasi-anak');
+	Route::get('verifi-anak/{id}', [\App\Http\Controllers\Koordinator\AnakController::class, 'verifi_anak'])->name('verifi-anak');
 	//sudah verifikasi anak
-	Route::get('sudah-verifikasi', [\App\Http\Controllers\Koordinator\AnakController::class, 'sudah_verifikasi'])->name('sudah-verifikasi');
+	Route::get('sdh-verifikasi', [\App\Http\Controllers\Koordinator\AnakController::class, 'sdh_verifikasi'])->name('sdh-verifikasi');
 
 	// Export verifikasi anak
 	Route::get('export-verifikasi-anak', [\App\Http\Controllers\Koordinator\AnakController::class, 'export_verifikasi_anak'])->name('export-verifikasi-anak');

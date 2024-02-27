@@ -27,7 +27,7 @@
 
                 <?php if($anak->status_verifikasi==0): ?>
                 <div class="card ">
-                    <a href="<?php echo e(route('verifikasi-anak', $anak->id_anak)); ?>" class="btn btn-primary">Verifikasi</a>
+                    <a href="<?php echo e(route('verifi-anak', $anak->id_anak)); ?>" class="btn btn-primary">Verifikasi</a>
                 </div>
                 <?php endif; ?>
 

@@ -26,7 +26,7 @@
 
                 @if($anak->status_verifikasi==0)
                 <div class="card ">
-                    <a href="{{route('verifikasi-anak', $anak->id_anak) }}" class="btn btn-primary">Verifikasi</a>
+                    <a href="{{route('verifi-anak', $anak->id_anak) }}" class="btn btn-primary">Verifikasi</a>
                 </div>
                 @endif
 

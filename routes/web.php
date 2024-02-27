@@ -39,12 +39,6 @@ Route::prefix('auth')->group(function () {
     // Route::get('/get-kecamatan-by-survior', 'App\Http\Controllers\Admin\AnakController@getKecamatanBySurvior')->name('getKecamatanBySurvior');
     // Route::get('get-kecamatan/{surviorId}', 'AnakController@getKecamatan');
     // Route::get('/get-kecamatan/{id}', 'AnakController@getKecamatan');
-    
-
-    
-
-
-
 
     // Route::get('/anak', [AnakController::class, 'index']);
     // Route::get('/maps', [MapController::class, 'index']);

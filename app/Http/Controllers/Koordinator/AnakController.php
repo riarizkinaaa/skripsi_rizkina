@@ -73,7 +73,7 @@ class AnakController extends Controller
         // dd($anak);
         return view('koordinator.anak.detail_anak', compact('anak'));
     }
-    public function verifikasi_anak($id)
+    public function verifi_anak($id)
     {
         $anak = Model::findOrFail($id);
         $anak->update([
@@ -81,7 +81,7 @@ class AnakController extends Controller
         ]);
         if ($anak) {
             return redirect()
-                ->route('sudah-verifikasi')
+                ->route('sdh-verifikasi')
                 ->with([
                     'success' => 'Data has been verivaction successfully'
                 ]);
@@ -93,7 +93,7 @@ class AnakController extends Controller
                 ]);
         }
     }
-    public function sudah_verifikasi(Request $request)
+    public function sdh_verifikasi(Request $request)
     {
         $data['q'] = $request->query('q');
         $data['id_survior'] = $request->query('id_survior');
