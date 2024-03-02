@@ -41,6 +41,14 @@
                         </div>
                         
                         <div class="mb-3 row">
+                            <label for="nama_kecamatan" class="col-sm-3 col-form-label">Kecamatan</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="nama_kecamatan" class="form-control" id="nama_kecamatan" readonly>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="mb-3 row">
                             <label for="nama" class="col-sm-3 col-form-label">Nama Lengkap</label>
                             <div class="col-sm-9">
                                 <input class="form-control" id="nama" type="text" name="nama" autocomplete="off">
@@ -192,24 +200,20 @@
                 // Lakukan AJAX request
                 $.ajax({
                     url: '{{ route("get-kecamatan") }}',
-                    type: 'POST',
+                    type: 'GET',
                     data: {survior: surviorId},
                     dataType: 'json',
                     success: function(data){
-                        // Ubah isi dropdown kecamatan
-                        var kecamatanDropdown = $('select[name="kecamatan"]');
-                        kecamatanDropdown.empty();
-                        $.each(data, function(key, value){
-                            kecamatanDropdown.append('<option value="'+ key +'">'+ value +'</option>');
-                        });
+                        // Tampilkan nama kecamatan di kolom input
+                        $('input[name="nama_kecamatan"]').val(data.nama_kecamatan);
                     },
                     error: function(xhr, textStatus, errorThrown) {
                         console.log("Error: ", xhr.responseText); // Cetak pesan kesalahan ke konsol
                     }
                 });
             }else{
-                // Kosongkan dropdown kecamatan jika tidak ada pilihan pendata yang dipilih
-                $('select[name="kecamatan"]').empty();
+                // Kosongkan kolom input jika tidak ada pilihan pendata yang dipilih
+                $('input[name="nama_kecamatan"]').val('');
             }
         });
     });

@@ -110,13 +110,20 @@ class AnakController extends Controller
     }
     public function getKecamatan(Request $request){
         $surviorId = $request->input('survior');
-        // Ambil data kecamatan berdasarkan pendata yang dipilih
-        dd($request->all());
-        $kecamatan = Survior::where('id_survior', $surviorId)->pluck('nama_kecamatan', 'id_kecamatan');
-        return response()->json($kecamatan);
+        // Ambil id kecamatan berdasarkan pendata yang dipilih
+        $kecamatanId = Survior::findOrFail($surviorId)->id_kecamatan;
+        
+        // Kemudian, ambil nama kecamatan berdasarkan id kecamatan
+        $kecamatan = Kecamatan::findOrFail($kecamatanId)->nama_kecamatan;
+        
+        // Mengambil semua kecamatan untuk dropdown
+        $data['kecamatan'] = Kecamatan::pluck('nama_kecamatan', 'id_kecamatan');
+    
+        return response()->json(['nama_kecamatan' => $kecamatan, 'data' => $data]);
     }
     
-
+    
+    
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -202,6 +209,12 @@ class AnakController extends Controller
                     'error' => 'Nomor Induk Keluarga already in use, please try again'
                 ]);
         }
+    }
+    // controller untuk peta
+    public function indexJson()
+    {
+        $jumlahAnak = Anak::count();
+        return response()->json(['jumlah_anak' => $jumlahAnak]);
     }
     public function edit($id)
     {
