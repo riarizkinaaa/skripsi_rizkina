@@ -1,8 +1,7 @@
-@extends('layouts.admin.master')
-@section('title', 'Dashboard')
+<?php $__env->startSection('title', 'Dashboard'); ?>
 
-@push('css')
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/animate.css') }}">
+<?php $__env->startPush('css'); ?>
+    <link rel="stylesheet" type="text/css" href="<?php echo e(asset('assets/css/animate.css')); ?>">
     <style>
         #chartdiv {
             width: 100%;
@@ -60,9 +59,9 @@
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-@endpush
-@section('content')
-    @yield('breadcrumb-list')
+<?php $__env->stopPush(); ?>
+<?php $__env->startSection('content'); ?>
+    <?php echo $__env->yieldContent('breadcrumb-list'); ?>
     <!-- Container-fluid starts-->
     <div class="container-fluid dashboard-default-sec">
         <div class="row">
@@ -188,30 +187,30 @@
                 </div>
             </div>
         </div>
-        {{-- @include('maps/peta') --}}
+        
     </div>
     <!-- Container-fluid Ends-->
-    @push('scripts')
-        <script src="{{ asset('assets/js/chart/chartist/chartist.js') }}"></script>
-        <script src="{{ asset('assets/js/chart/chartist/chartist-plugin-tooltip.js') }}"></script>
+    <?php $__env->startPush('scripts'); ?>
+        <script src="<?php echo e(asset('assets/js/chart/chartist/chartist.js')); ?>"></script>
+        <script src="<?php echo e(asset('assets/js/chart/chartist/chartist-plugin-tooltip.js')); ?>"></script>
 
 
-        <script src="{{ asset('assets/js/chart/amchart/core.js') }}"></script>
-        <script src="{{ asset('assets/js/chart/amchart/charts.js') }}"></script>
-        <script src="{{ asset('assets/js/chart/amchart/animated.js') }}"></script>
-        {{-- <script type="text/javascript" src="{{asset('assets/js/leaflet/us-states.js')}}"></script> --}}
-        <script type="text/javascript" src="{{ asset('assets/js/leaflet/batu_keliang_utara.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('assets/semuafile/batu_keliang.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('assets/semuafile/praya_tengah.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('assets/semuafile/kopang.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('assets/semuafile/janapria.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('assets/semuafile/jonggat.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('assets/semuafile/peringgarata.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('assets/semuafile/praya_barat_daya.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('assets/semuafile/praya_barat.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('assets/semuafile/pujut.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('assets/semuafile/praya.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('assets/semuafile/praya_timur.js') }}"></script>
+        <script src="<?php echo e(asset('assets/js/chart/amchart/core.js')); ?>"></script>
+        <script src="<?php echo e(asset('assets/js/chart/amchart/charts.js')); ?>"></script>
+        <script src="<?php echo e(asset('assets/js/chart/amchart/animated.js')); ?>"></script>
+        
+        <script type="text/javascript" src="<?php echo e(asset('assets/js/leaflet/batu_keliang_utara.js')); ?>"></script>
+        <script type="text/javascript" src="<?php echo e(asset('assets/semuafile/batu_keliang.js')); ?>"></script>
+        <script type="text/javascript" src="<?php echo e(asset('assets/semuafile/praya_tengah.js')); ?>"></script>
+        <script type="text/javascript" src="<?php echo e(asset('assets/semuafile/kopang.js')); ?>"></script>
+        <script type="text/javascript" src="<?php echo e(asset('assets/semuafile/janapria.js')); ?>"></script>
+        <script type="text/javascript" src="<?php echo e(asset('assets/semuafile/jonggat.js')); ?>"></script>
+        <script type="text/javascript" src="<?php echo e(asset('assets/semuafile/peringgarata.js')); ?>"></script>
+        <script type="text/javascript" src="<?php echo e(asset('assets/semuafile/praya_barat_daya.js')); ?>"></script>
+        <script type="text/javascript" src="<?php echo e(asset('assets/semuafile/praya_barat.js')); ?>"></script>
+        <script type="text/javascript" src="<?php echo e(asset('assets/semuafile/pujut.js')); ?>"></script>
+        <script type="text/javascript" src="<?php echo e(asset('assets/semuafile/praya.js')); ?>"></script>
+        <script type="text/javascript" src="<?php echo e(asset('assets/semuafile/praya_timur.js')); ?>"></script>
 
         <script type="text/javascript">
             // Inisialisasi peta
@@ -681,5 +680,7 @@
 
             })
         </script>
-    @endpush
-@endsection
+    <?php $__env->stopPush(); ?>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.admin.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\ASUS\Music\skripsi\pmks_pengembangan_2-master\resources\views/superadmin/dashboard.blade.php ENDPATH**/ ?>

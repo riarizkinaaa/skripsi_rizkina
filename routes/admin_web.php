@@ -147,13 +147,15 @@ Route::prefix('superadmin')->middleware('auth', 'cek_login:1')->group(function (
 	// Route::get('/get-kecamatan/{id}', [AdminAnakController::class, 'getKecamatan']);
 	// Route::get('/get-kecamatan-by-survior/{id}', 'App\Http\Controllers\Admin\AnakController@getKecamatanBySurvior');
 	// get data export
-	Route::get('/ank', 'AnakController@indexJson');
-	Route::get('/get-kecamatan', 'AnakController@getKecamatan')->name('get-kecamatan');
+	
+	// Route::get('/get-kecamatan', 'AnakController@getKecamatan')->name('get-kecamatan');
+	Route::get('get-kecamatan', [\App\Http\Controllers\Admin\AnakController::class, 'getKecamatan']);
 
 	// Route::get('anak/getKecamatanBySurvior', 'App\Http\Controllers\Admin\AnakController@getKecamatanBySurvior')->name('anak.getKecamatanBySurvior');
 
 	Route::get('anakex', [\App\Http\Controllers\Admin\AnakController::class, 'anakex']);
-
+	// routes/api.php
+	// Route::get('/anak/{kecamatan}', 'AnakController@show');
 	// get data desa untuk json
 	Route::get('getdesa', [\App\Http\Controllers\Admin\DusunController::class, 'getdesa']);
 	Route::get('all_anak', [\App\Http\Controllers\Admin\AnakController::class, 'all_anak']);

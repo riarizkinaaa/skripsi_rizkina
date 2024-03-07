@@ -122,7 +122,7 @@ class SurviorController extends Controller
         ]);
         if ($survior) {
             return redirect()
-                ->route('index')
+                ->route('survior.dashboard_survior')
                 ->with([
                     'success' => 'New Pendata has been created successfully, Please Login Again!'
                 ]);

@@ -1,42 +1,44 @@
-@extends('layouts.admin.master')
+<?php $__env->startSection('title'); ?>
+    <?php echo e($title); ?>
 
-@section('title')
-    {{ $title }}
-@endsection
+<?php $__env->stopSection(); ?>
 
 
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="caontainer-fluid">
         <div class="row">
             <div class="col-md-9">
                 <div class="card">
 
-                    @if (session('success'))
+                    <?php if(session('success')): ?>
                         <div class="alert alert-primary outline-2x" role="alert">
-                            <p>{{ session('success') }}</p>
+                            <p><?php echo e(session('success')); ?></p>
                         </div>
-                    @endif
+                    <?php endif; ?>
 
-                    @if (session('error'))
+                    <?php if(session('error')): ?>
                         <div class="alert alert-danger outline-2x " role="alert">
-                            {{ session('error') }}
+                            <?php echo e(session('error')); ?>
+
                         </div>
-                    @endif
+                    <?php endif; ?>
                     <div class="card-header">
-                        <h5>Form {{ $title }}</h5>
+                        <h5>Form <?php echo e($title); ?></h5>
                     </div>
                     <div class="card-body">
-                        {!! Form::model($model, ['route' => $route, 'method' => $method, 'enctype' => 'multipart/form-data']) !!}
+                        <?php echo Form::model($model, ['route' => $route, 'method' => $method, 'enctype' => 'multipart/form-data']); ?>
+
                         <div class="row">
                             <div class="mb-3 row">
                                 <label for="survior" class="col-sm-3 col-form-label">Pendata</label>
                                 <div class="col-sm-9">
-                                    {!! Form::select('survior', $survior, null, [
+                                    <?php echo Form::select('survior', $survior, null, [
                                         'class' => 'form-control js-example-basic-single',
                                         'id' => 'survior',
                                         'placeholder' => 'Pilih survior',
-                                    ]) !!}
-                                    <span class="text-danger">{{ $errors->first('survior') }}</span>
+                                    ]); ?>
+
+                                    <span class="text-danger"><?php echo e($errors->first('survior')); ?></span>
                                 </div>
                             </div>
 
@@ -54,9 +56,16 @@
                                 <div class="col-sm-9">
                                     <input class="form-control" id="nama" type="text" name="nama"
                                         autocomplete="off">
-                                    @error('nama')
-                                        <p class="help-block">{{ $message }}</p>
-                                    @enderror
+                                    <?php $__errorArgs = ['nama'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <p class="help-block"><?php echo e($message); ?></p>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                 </div>
                             </div>
                             <div class="mb-3 row">
@@ -64,9 +73,16 @@
                                 <div class="col-sm-9">
                                     <input class=" form-control" id="kk" type="number" name="kk" placeholder=""
                                         autocomplete="off">
-                                    @error('kk')
-                                        <p class="help-block">{{ $message }}</p>
-                                    @enderror
+                                    <?php $__errorArgs = ['kk'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <p class="help-block"><?php echo e($message); ?></p>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                 </div>
                             </div>
                             <div class="mb-3 row">
@@ -74,9 +90,16 @@
                                 <div class="col-sm-9">
                                     <input class=" form-control" id="nik" type="number" name="nik" placeholder=""
                                         autocomplete="off">
-                                    @error('nik')
-                                        <p class="help-block">{{ $message }}</p>
-                                    @enderror
+                                    <?php $__errorArgs = ['nik'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <p class="help-block"><?php echo e($message); ?></p>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                 </div>
                             </div>
                             <div class="mb-3 row">
@@ -84,9 +107,16 @@
                                 <div class="col-sm-9">
                                     <input class=" form-control" id="alamat" type="text" name="alamat" placeholder=""
                                         autocomplete="off">
-                                    @error('alamat')
-                                        <p class="help-block">{{ $message }}</p>
-                                    @enderror
+                                    <?php $__errorArgs = ['alamat'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <p class="help-block"><?php echo e($message); ?></p>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                 </div>
                             </div>
                             <div class="mb-3 row">
@@ -97,9 +127,16 @@
                                         <option value="1">Laki Laki</option>
                                         <option value="0">Perempuan</option>
                                     </select>
-                                    @error('jk')
-                                        <p class="help-block">{{ $message }}</p>
-                                    @enderror
+                                    <?php $__errorArgs = ['jk'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <p class="help-block"><?php echo e($message); ?></p>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                 </div>
                             </div>
                             <div class="mb-3 row">
@@ -107,9 +144,16 @@
                                 <div class="col-sm-9">
                                     <input class=" form-control" id="tempat_lahir" type="text" name="tempat_lahir"
                                         required autocomplete="off">
-                                    @error('tempat_lahir')
-                                        <p class="help-block">{{ $message }}</p>
-                                    @enderror
+                                    <?php $__errorArgs = ['tempat_lahir'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <p class="help-block"><?php echo e($message); ?></p>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                 </div>
                             </div>
                             <div class="mb-3 row">
@@ -117,9 +161,16 @@
                                 <div class="col-sm-9">
                                     <input class="form-control" id="tgl_lahir" type="date" name="tgl_lahir"
                                         autocomplete="off">
-                                    @error('tgl_lahir')
-                                        <p class="help-block">{{ $message }}</p>
-                                    @enderror
+                                    <?php $__errorArgs = ['tgl_lahir'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <p class="help-block"><?php echo e($message); ?></p>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                 </div>
                             </div>
                             <div class="mb-3 row">
@@ -127,9 +178,16 @@
                                 <div class="col-sm-9">
                                     <input class="form-control" id="nama_wali" type="text" name="nama_wali"
                                         autocomplete="off">
-                                    @error('nama_wali')
-                                        <p class="help-block">{{ $message }}</p>
-                                    @enderror
+                                    <?php $__errorArgs = ['nama_wali'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <p class="help-block"><?php echo e($message); ?></p>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                 </div>
                             </div>
                             <div class="mb-3 row">
@@ -137,9 +195,16 @@
                                 <div class="col-sm-9">
                                     <input class="form-control" id="alamat_sekolah" type="text" name="alamat_sekolah"
                                         autocomplete="off">
-                                    @error('alamat_sekolah')
-                                        <p class="help-block">{{ $message }}</p>
-                                    @enderror
+                                    <?php $__errorArgs = ['alamat_sekolah'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <p class="help-block"><?php echo e($message); ?></p>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                 </div>
                             </div>
                             <div class="mb-3 row">
@@ -151,39 +216,49 @@
                                         <option value="2">Piatu</option>
                                         <option value="3">Yatim Piatu</option>
                                     </select>
-                                    @error('jk')
-                                        <p class="help-block">{{ $message }}</p>
-                                    @enderror
+                                    <?php $__errorArgs = ['jk'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <p class="help-block"><?php echo e($message); ?></p>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                 </div>
                             </div>
                             <div class="mb-3 row">
                                 <label for="" class="col-sm-3 col-form-label">Pekerjaa Wali</label>
                                 <div class="col-sm-9">
-                                    {!! Form::select('pekerjaan', $pekerjaan, null, [
+                                    <?php echo Form::select('pekerjaan', $pekerjaan, null, [
                                         'class' => 'js-example-basic-single',
                                         'placeholder' => 'Pilih Pekerjaan',
-                                    ]) !!}
-                                    <span class="text-danger">{{ $errors->first('pekerjaan') }}</span>
+                                    ]); ?>
+
+                                    <span class="text-danger"><?php echo e($errors->first('pekerjaan')); ?></span>
                                 </div>
                             </div>
                             <div class="mb-3 row">
                                 <label for="" class="col-sm-3 col-form-label">Pendidikan</label>
                                 <div class="col-sm-9">
-                                    {!! Form::select('pendidikan', $pendidikan, null, [
+                                    <?php echo Form::select('pendidikan', $pendidikan, null, [
                                         'class' => 'form-control js-example-basic-single',
                                         'placeholder' => 'Pilih Pendidikan',
-                                    ]) !!}
-                                    <span class="text-danger">{{ $errors->first('pendidikan') }}</span>
+                                    ]); ?>
+
+                                    <span class="text-danger"><?php echo e($errors->first('pendidikan')); ?></span>
                                 </div>
                             </div>
                             <div class="mb-3 row">
                                 <label for="" class="col-sm-3 col-form-label">Kelas Pendidikan</label>
                                 <div class="col-sm-9">
-                                    {!! Form::select('kelas', $kelas_pendidikan, null, [
+                                    <?php echo Form::select('kelas', $kelas_pendidikan, null, [
                                         'class' => 'form-control js-example-basic-single',
                                         'placeholder' => 'Pilih Kelas Pendidikan',
-                                    ]) !!}
-                                    <span class="text-danger">{{ $errors->first('kelas') }}</span>
+                                    ]); ?>
+
+                                    <span class="text-danger"><?php echo e($errors->first('kelas')); ?></span>
                                 </div>
                             </div>
 
@@ -192,14 +267,15 @@
                         <div class="col-md-6">
                             <button class="btn btn-primary" type="submit">Simpan</button>
                         </div>
-                        {!! Form::close() !!}
+                        <?php echo Form::close(); ?>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    @push('scripts')
+    <?php $__env->startPush('scripts'); ?>
         <script>
             $(document).ready(function() {
                 // Ketika pilihan pendata berubah
@@ -218,7 +294,7 @@
                             dataType: 'json',
                             success: function(data) {
                                 // Tampilkan nama kecamatan di kolom input
-                                // console.log(data['kecamatan'])
+                                console.log(data['kecamatan'])
                                 $('#nama_kecamatana').val(data['kecamatan']);
 
                                 // console.log(data)
@@ -235,5 +311,7 @@
                 });
             });
         </script>
-    @endpush
-@endsection
+    <?php $__env->stopPush(); ?>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.admin.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\ASUS\Music\skripsi\pmks_pengembangan_2-master\resources\views/superadmin/anak/formadd.blade.php ENDPATH**/ ?>

@@ -1,9 +1,7 @@
-@extends('layouts.survior.master')
+<?php $__env->startSection('title', 'Dashboard'); ?>
 
-@section('title', 'Dashboard')
-
-@push('css')
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/animate.css') }}">
+<?php $__env->startPush('css'); ?>
+    <link rel="stylesheet" type="text/css" href="<?php echo e(asset('assets/css/animate.css')); ?>">
     <style>
         #chartdiv {
             width: 100%;
@@ -15,9 +13,9 @@
 
         }
     </style>
-@endpush
-@section('content')
-    @yield('breadcrumb-list')
+<?php $__env->stopPush(); ?>
+<?php $__env->startSection('content'); ?>
+    <?php echo $__env->yieldContent('breadcrumb-list'); ?>
     <!-- Container-fluid starts-->
     <div class="container-fluid dashboard-default-sec">
         <div class="row">
@@ -120,17 +118,17 @@
 
 
         </div>
-        {{-- @include('maps/map') --}}
+        
     </div>
     <!-- Container-fluid Ends-->
-    @push('scripts')
-        <script src="{{ asset('assets/js/chart/chartist/chartist.js') }}"></script>
-        <script src="{{ asset('assets/js/chart/chartist/chartist-plugin-tooltip.js') }}"></script>
+    <?php $__env->startPush('scripts'); ?>
+        <script src="<?php echo e(asset('assets/js/chart/chartist/chartist.js')); ?>"></script>
+        <script src="<?php echo e(asset('assets/js/chart/chartist/chartist-plugin-tooltip.js')); ?>"></script>
 
 
-        <script src="{{ asset('assets/js/chart/amchart/core.js') }}"></script>
-        <script src="{{ asset('assets/js/chart/amchart/charts.js') }}"></script>
-        <script src="{{ asset('assets/js/chart/amchart/animated.js') }}"></script>
+        <script src="<?php echo e(asset('assets/js/chart/amchart/core.js')); ?>"></script>
+        <script src="<?php echo e(asset('assets/js/chart/amchart/charts.js')); ?>"></script>
+        <script src="<?php echo e(asset('assets/js/chart/amchart/animated.js')); ?>"></script>
 
 
         <script>
@@ -142,7 +140,7 @@
                     success: function(data) {
                         // status anak
                         // Mendapatkan id pendata dari sesi
-                        const id_pendata = `{{ Session::get('id_survior') }}`;
+                        const id_pendata = `<?php echo e(Session::get('id_survior')); ?>`;
 
                         // Melakukan filter data anak berdasarkan id pendata
                         const pendata = data['anak'].filter((anak) => anak.id_survior == id_pendata);
@@ -380,5 +378,7 @@
 
             })
         </script>
-    @endpush
-@endsection
+    <?php $__env->stopPush(); ?>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.survior.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\ASUS\Music\skripsi\pmks_pengembangan_2-master\resources\views/survior/dashboard.blade.php ENDPATH**/ ?>

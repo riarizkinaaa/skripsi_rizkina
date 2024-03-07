@@ -91,6 +91,19 @@ class AnakController extends Controller
         return view('superadmin.' . $this->viewIndex, $data);
         // ->with('anakPerKecamatan', $anakPerKecamatan);;
     }
+
+    // peta
+    public function show($kecamatan)
+    {
+        $anak = Anak::where('nama_kecamatan', $kecamatan)->first();
+        if ($anak) {
+            return response()->json(['jumlah_anak_yatim' => $anak->jumlah_anak_yatim]);
+        } else {
+            return response()->json(['error' => 'Data anak tidak ditemukan'], 404);
+        }
+    }
+    
+    // end peta
     public function create()
     {
         $data = [
@@ -111,15 +124,19 @@ class AnakController extends Controller
     public function getKecamatan(Request $request){
         $surviorId = $request->input('survior');
         // Ambil id kecamatan berdasarkan pendata yang dipilih
-        $kecamatanId = Survior::findOrFail($surviorId)->id_kecamatan;
+        $survior = Survior::findOrFail($surviorId);
+        $idKecamatan = $survior->id_kecamatan;
+        
         
         // Kemudian, ambil nama kecamatan berdasarkan id kecamatan
-        $kecamatan = Kecamatan::findOrFail($kecamatanId)->nama_kecamatan;
+        $kecamatan = Kecamatan::findOrFail($idKecamatan);
+        $kecamatans=$kecamatan->nama_kecamatan;
+
         
         // Mengambil semua kecamatan untuk dropdown
-        $data['kecamatan'] = Kecamatan::pluck('nama_kecamatan', 'id_kecamatan');
+        $data['kecamatan'] = $kecamatans;
     
-        return response()->json(['nama_kecamatan' => $kecamatan, 'data' => $data]);
+        return response()->json( $data);
     }
     
     
