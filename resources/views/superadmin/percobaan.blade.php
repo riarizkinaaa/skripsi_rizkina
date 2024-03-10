@@ -133,12 +133,19 @@
     for (let i = 0; i < dataGeoJSON.length; i++) {
         const namaKecamatan = dataGeoJSON[i].nama;
         const geojsonKecamatan = dataGeoJSON[i].geojson;
+        const features = geojsonKecamatan.features; // Perlu mengambil array features di setiap GeoJSON
+
+        // Loop untuk menetapkan nilai density di setiap fitur
+        for (let j = 0; j < features.length; j++) {
+            features[j].properties.density = getDensityByNamaKecamatan(
+            namaKecamatan); // Anda perlu mengganti getDensityByNamaKecamatan dengan cara yang sesuai untuk mendapatkan nilai density berdasarkan nama kecamatan
+        }
+
         // Buat layer GeoJSON untuk setiap iterasi
         const layerKecamatan = L.geoJson(geojsonKecamatan, {
-            style,
-            onEachFeature,
+            style: style,
+            onEachFeature: onEachFeature,
         }).addTo(map);
-
     }
 
     function resetHighlight(e) {

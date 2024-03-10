@@ -10,6 +10,7 @@ use App\Models\KelasPendidikan;
 use App\Models\Kecamatan;
 use App\Models\Desa;
 use App\Models\Survior;
+use Carbon\Carbon;
 
 class AnakController extends Controller
 {
@@ -26,23 +27,25 @@ class AnakController extends Controller
         $data['id_desa'] = $request->query('id_desa');
         // $data['id_dusun'] = $request->query('id_dusun');
         $data['title'] = 'Data Anak';
-        $data['route_export'] = 'export-verifikasi-anak';
         $data['routePrefix'] = $this->routePrefix;
         $data['kecamatan'] = Kecamatan::pluck('nama_kecamatan', 'id_kecamatan');
         $data['survior'] = Survior::pluck('nama_lengkap', 'id_survior');
         $data['pendidikan'] = Pendidikan::pluck('pendidikan', 'id_pendidikan');
         $data['kelas_pendidikan'] = KelasPendidikan::pluck('kelas_pendidikan', 'id_kelas_pendidikan');
         $data['desa'] = Desa::pluck('nama_desa', 'id_desa');
+        $today = Carbon::now();
+        $nineteenYearsAgo = $today->copy()->subYears(19)->startOfDay();
 
         $query = Model::join('survior', 'survior.id_survior', '=', 'anak.id_survior')
             ->join('pendidikan', 'pendidikan.id_pendidikan', '=', 'anak.id_pendidikan')
             ->join('kelas_pendidikan', 'kelas_pendidikan.id_kelas_pendidikan', '=', 'anak.id_kelas_pendidikan')
             ->join('kecamatan', 'kecamatan.id_kecamatan', '=', 'anak.id_kecamatan')
             ->join('desa', 'desa.id_desa', '=', 'anak.id_desa')
-            ->where('status_verifikasi', '=', '0')
+            ->where('anak.id_kecamatan', '=',  $request->session()->get('id_kecamatan'))
             ->where(function ($query) use ($data) {
                 $query->where('nomor_nik', 'like', '%' . $data['q'] . '%');
-            });
+            })
+            ->whereRaw('anak.tgl_lahir > ?', [$nineteenYearsAgo]);
 
         if ($data['id_survior'])
             $query->where('anak.id_survior', $data['id_survior']);
@@ -54,8 +57,13 @@ class AnakController extends Controller
             $query->where('anak.id_kecamatan', $data['id_kecamatan']);
         if ($data['id_desa'])
             $query->where('anak.id_desa', $data['id_desa']);
-
+        // dd();
         $data['models'] = $query->paginate(10)->appends($_GET);
+        foreach ($data['models'] as $anak) {
+            $tanggal_lahir = Carbon::parse($anak->tgl_lahir);
+            $usia = $tanggal_lahir->diff(Carbon::now())->format('%y th, %m bln, %d h');
+            $anak->usia = $usia;
+        }
         return view('koordinator.' . $this->viewIndex, $data);
     }
     public function detail_anak($id)

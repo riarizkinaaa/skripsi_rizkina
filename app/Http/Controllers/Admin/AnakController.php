@@ -92,18 +92,7 @@ class AnakController extends Controller
         // ->with('anakPerKecamatan', $anakPerKecamatan);;
     }
 
-    // peta
-    public function show($kecamatan)
-    {
-        $anak = Anak::where('nama_kecamatan', $kecamatan)->first();
-        if ($anak) {
-            return response()->json(['jumlah_anak_yatim' => $anak->jumlah_anak_yatim]);
-        } else {
-            return response()->json(['error' => 'Data anak tidak ditemukan'], 404);
-        }
-    }
     
-    // end peta
     public function create()
     {
         $data = [
@@ -138,9 +127,19 @@ class AnakController extends Controller
     
         return response()->json( $data);
     }
+    public function anakList(Request $request)
+    {
+        $data = Model::join('kecamatan', 'anak.id_kecamatan', '=', 'kecamatan.id_kecamatan')
+        ->select('kecamatan.nama_kecamatan', Model::raw('COUNT(*) as total_anak'))
+        ->whereYear('anak.tgl_lahir', '>', now()->year - 19)
+        ->groupBy('kecamatan.nama_kecamatan')
+        ->get();
     
-    
-    
+
+    return response()->json($data);
+    }
+
+
     public function store(Request $request)
     {
         $this->validate($request, [

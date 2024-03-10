@@ -253,19 +253,12 @@
                         var pieSeriesStatusAnak = chartStatusAnak.series.push(new am4charts.PieSeries());
                         pieSeriesStatusAnak.dataFields.value = "jumlah";
                         pieSeriesStatusAnak.dataFields.category = "status";
-                        pieSeriesStatusAnak.labels.template.radius = am4core.percent(
-                            50); // Atur jarak label dari pusat
-                        pieSeriesStatusAnak.labels.template.padding(3, 3, 3, 3); // Atur padding label
+                        pieSeriesStatusAnak.innerRadius = am4core.percent(50);
                         pieSeriesStatusAnak.ticks.template.disabled = true;
-                        pieSeriesStatusAnak.labels.template.disabled = false;
+                        pieSeriesStatusAnak.labels.template.disabled = true;
 
-                        // Mengatur teks label dengan menambahkan "orang" setelah nilai
-                        pieSeriesStatusAnak.labels.template.text = "{value} orang";
-                        // Menambahkan label interaktif pada setiap slice
-                        pieSeriesStatusAnak.labels.template.interactionsEnabled = true;
-                        // pieSeriesStatusAnak.labels.template.text =
-                        //     "{category}: {value.percent.formatNumber('#.0')}% ({value}) Orang";
-
+                        // Set label text to display real values instead of percentages
+                        // pieSeriesStatusAnak.labels.template.text = "{value} orang";
                         // Menambahkan legenda
                         chartStatusAnak.legend = new am4charts.Legend();
                         chartStatusAnak.legend.position = "right";

@@ -294,7 +294,7 @@ unset($__errorArgs, $__bag); ?>
                             dataType: 'json',
                             success: function(data) {
                                 // Tampilkan nama kecamatan di kolom input
-                                console.log(data['kecamatan'])
+                                // console.log(data['kecamatan'])
                                 $('#nama_kecamatana').val(data['kecamatan']);
 
                                 // console.log(data)

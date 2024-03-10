@@ -159,6 +159,9 @@ Route::prefix('superadmin')->middleware('auth', 'cek_login:1')->group(function (
 	// get data desa untuk json
 	Route::get('getdesa', [\App\Http\Controllers\Admin\DusunController::class, 'getdesa']);
 	Route::get('all_anak', [\App\Http\Controllers\Admin\AnakController::class, 'all_anak']);
+	// Route::get('/anakList', [App\Http\Controllers\Admin\AnakController::class, 'anakList']);
+	Route::get('/geojson-data', [App\Http\Controllers\Admin\AnakController::class, 'anakList']);
+	// Route::get('/geojson-data', [AdminAnakController::class, 'anakList']);
 
 	Route::resource('role', RoleController::class);
 });
