@@ -257,10 +257,11 @@
 
 
             info.update = function(props) {
-                const contents = props ? `<b>${props.NAMOBJ}</b><br/>${props.density}` :
+                const contents = props ? `<b>Kecamatan: ${props.NAMOBJ}</b><br/>Jumlah Anak: ${props.density}` :
                     "Arahkan kursor ke salah satu Kecamatan Orang:";
-                this._div.innerHTML = `<h4>Jumlah Anak Yatim Piatu di Kab Lombok Tengah</h4>${contents}`;
+                this._div.innerHTML = `<h4>Jumlah Anak Yatim Piatu di Kabupaten Lombok Tengah</h4>${contents}`;
             };
+
 
 
             info.addTo(map);
