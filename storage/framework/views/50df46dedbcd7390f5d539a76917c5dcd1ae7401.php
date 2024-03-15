@@ -1,27 +1,27 @@
-@extends('layouts.admin.master')
+<?php $__env->startSection('title'); ?>
+    <?php echo e($title); ?>
 
-@section('title')
-    {{ $title }}
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="container-fluid">
-        <h4>{{ $title }}</h4>
+        <h4><?php echo e($title); ?></h4>
     </div>
 
 
 
-    @if (session('success'))
+    <?php if(session('success')): ?>
         <div class="alert alert-primary outline-2x" role="alert">
-            <p>{{ session('success') }}</p>
+            <p><?php echo e(session('success')); ?></p>
         </div>
-    @endif
+    <?php endif; ?>
 
-    @if (session('error'))
+    <?php if(session('error')): ?>
         <div class="alert alert-danger outline-2x " role="alert">
-            {{ session('error') }}
+            <?php echo e(session('error')); ?>
+
         </div>
-    @endif
+    <?php endif; ?>
     <div class="caontainer-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -34,23 +34,26 @@
                         <div class="col-md-10">
 
                             <div class="row">
-                                {!! Form::open(['route' => $routePrefix . '.index', 'method' => 'GET']) !!}
+                                <?php echo Form::open(['route' => $routePrefix . '.index', 'method' => 'GET']); ?>
+
                                 <div class="row justify-content-end">
 
                                     <div class="col-md-4 ">
-                                        {!! Form::text('q', request('q'), [
+                                        <?php echo Form::text('q', request('q'), [
                                             'class' => 'form-control form-control-sm',
                                             'placeholder' => 'Cari Nama Kecamatan',
-                                        ]) !!}
+                                        ]); ?>
+
                                     </div>
                                     <div class="col-md-4">
                                         <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-filter"></i>
                                             Filter</button>
-                                        <a href="{{ route($routePrefix . '.index') }}" class="btn btn-sm btn-danger"><i
+                                        <a href="<?php echo e(route($routePrefix . '.index')); ?>" class="btn btn-sm btn-danger"><i
                                                 class="fa fa-filter"></i> Clear</a>
                                     </div>
                                 </div>
-                                {!! Form::close() !!}
+                                <?php echo Form::close(); ?>
+
                             </div>
 
                         </div>
@@ -63,56 +66,58 @@
                                         <th>NO</th>
                                         <th>Nama Kecamatan</th>
                                         <th>geojson</th>
-                                        {{-- <th>file js</th> --}}
+                                        
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @php
+                                    <?php
                                         $i = $models->firstItem();
-                                    @endphp
-                                    @forelse ($models as $item)
+                                    ?>
+                                    <?php $__empty_1 = true; $__currentLoopData = $models; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                                         <tr>
-                                            <td>{{ $i++ }}</td>
-                                            <td>{{ $item->nama_kecamatan }}</td>
+                                            <td><?php echo e($i++); ?></td>
+                                            <td><?php echo e($item->nama_kecamatan); ?></td>
                                             <td>
-                                                @if ($item->file1)
-                                                    {{ basename($item->geojson, '.' . pathinfo($item->file1, PATHINFO_EXTENSION)) }}
-                                                @else
+                                                <?php if($item->file1): ?>
+                                                    <?php echo e(basename($item->geojson, '.' . pathinfo($item->file1, PATHINFO_EXTENSION))); ?>
+
+                                                <?php else: ?>
                                                     Tidak Ada File
-                                                @endif
+                                                <?php endif; ?>
                                             </td>
 
 
                                             <td class="text-center">
                                                 <button class="btn btn-sm btn-warning btn-square tombol-ubah" type="button"
                                                     data-bs-toggle="modal" data-original-title="test"
-                                                    data-bs-target="#tomboUbah" data-id="{{ $item->id_kecamatan }}"><i
+                                                    data-bs-target="#tomboUbah" data-id="<?php echo e($item->id_kecamatan); ?>"><i
                                                         class="fa fa-edit"></i></button>
                                                 <form onsubmit="return confirm('Are You Sure ?');"
-                                                    action="kecamatan/{{ $item->id_kecamatan }}" method="POST"
+                                                    action="kecamatan/<?php echo e($item->id_kecamatan); ?>" method="POST"
                                                     class="d-inline ">
-                                                    @csrf
-                                                    @method('DELETE')
+                                                    <?php echo csrf_field(); ?>
+                                                    <?php echo method_field('DELETE'); ?>
                                                     <button type="submit" class="btn btn-sm btn-danger btn-square "><i
                                                             class="fa fa-trash"></i></button>
                                                 </form>
                                             </td>
                                         </tr>
-                                    @empty
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                                         <tr>
                                             <td colspan="3">Data tidak ada</td>
                                         </tr>
-                                    @endforelse
+                                    <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    @if ($models->hasPages())
+                    <?php if($models->hasPages()): ?>
                         <div class="card-footer pagination justify-content-end pagination-primary">
-                            {{ $models->links() }}
+                            <?php echo e($models->links()); ?>
+
                         </div>
-                    @endif
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -122,30 +127,58 @@
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form action="{{ route('kecamatan.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="<?php echo e(route('kecamatan.store')); ?>" method="POST" enctype="multipart/form-data">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Form Tambah Kecamatan</h5>
                         <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        @csrf
+                        <?php echo csrf_field(); ?>
                         <div class="mb-3 draggable">
                             <input type="hidden" name="id" id="id">
                             <label for="input-text-1">Nama Kecamatan</label>
-                            <input class="form-control btn-square @error('kecamatan') is-invalid @enderror" id="kecamatan"
+                            <input class="form-control btn-square <?php $__errorArgs = ['kecamatan'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" id="kecamatan"
                                 name="kecamatan" type="text" placeholder="Nama Kecamatan " autocomplete="off">
-                            @error('kecamatan')
-                                <p class="help-block">{{ $message }}</p>
-                            @enderror
+                            <?php $__errorArgs = ['kecamatan'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <p class="help-block"><?php echo e($message); ?></p>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
 
                         </div>
                         <div class="mb-3 draggable">
                             <label for="geojson">File Peta Wilayah (.geojson)</label>
                             <input type="file" name="geojson"
-                                class="form-control btn-square @error('geojson') is-invalid @enderror">
-                            @error('geojson')
-                                <p class="invalid-feedback">{{ $message }}</p>
-                            @enderror
+                                class="form-control btn-square <?php $__errorArgs = ['geojson'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>">
+                            <?php $__errorArgs = ['geojson'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <p class="invalid-feedback"><?php echo e($message); ?></p>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                         </div>
 
                     </div>
@@ -167,18 +200,32 @@
                         <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        @csrf
-                        @method('PUT')
+                        <?php echo csrf_field(); ?>
+                        <?php echo method_field('PUT'); ?>
 
                         <div class="mb-3 draggable">
                             <input type="hidden" name="id_ubah" id="id_ubah">
                             <label for="input-text-1">Nama Kecamatan</label>
-                            <input class="form-control btn-square @error('kecamatan_ubah') is-invalid @enderror"
+                            <input class="form-control btn-square <?php $__errorArgs = ['kecamatan_ubah'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>"
                                 id="kecamatan_ubah" name="kecamatan_ubah" type="text" placeholder="Nama kecamatan"
                                 required autocomplete="off">
-                            @error('kecamatan_ubah')
-                                <p class="help-block">{{ $message }}</p>
-                            @enderror
+                            <?php $__errorArgs = ['kecamatan_ubah'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <p class="help-block"><?php echo e($message); ?></p>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
 
                         </div>
                     </div>
@@ -190,7 +237,7 @@
             </div>
         </div>
     </div>
-    @push('scripts')
+    <?php $__env->startPush('scripts'); ?>
         <script>
             $(function() {
 
@@ -213,5 +260,7 @@
                 })
             })
         </script>
-    @endpush
-@endsection
+    <?php $__env->stopPush(); ?>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.admin.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\ASUS\Music\skripsi\pmks_pengembangan_2-master\resources\views/superadmin/kecamatan/index.blade.php ENDPATH**/ ?>

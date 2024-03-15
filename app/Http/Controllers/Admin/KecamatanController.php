@@ -27,9 +27,9 @@ class KecamatanController extends Controller
         $data['models'] = $query->paginate(10)->appends($_GET);
         return view('superadmin.kecamatan.index', $data);
 
-        $geojson1 = json_decode(file_get_contents(public_path('assets/semuafile/' . $data['models']->file1)));
-        $geojson2 = json_decode(file_get_contents(public_path('assets/semuafile/' . $data['models']->file2)));
-        return view('maps.map', $data)->with('geojson1', $geojson1)->with('geojson2', $geojson2);
+        $geojson1 = json_decode(file_get_contents(public_path('assets/semuafile/' . $data['models']->geojson)));
+        // $geojson2 = json_decode(file_get_contents(public_path('assets/semuafile/' . $data['models']->file2)));
+        return view('maps.map', $data)->with('geojson1', $geojson1);
     }
     public function store(Request $request)
     {
@@ -39,23 +39,23 @@ class KecamatanController extends Controller
             
             $this->validate($request, [
                 'kecamatan' => 'required|string|max:100',
-                'file1' => 'required',
-                'file2' => 'required',
+                'geojson' => 'required',
+                // 'file2' => 'required',
             ]);
-            $file1 = $request->file('file1');
-            $file2 = $request->file('file2');
+            $file = $request->file('geohson');
+            // $file2 = $request->file('file2');
             
             $tujuan_upload = 'assets/semuafile/';
             
-            $nama_file1 = $file1->getClientOriginalName();
-            $file1->move($tujuan_upload, $nama_file1);            
-            $nama_file2 = $file2->getClientOriginalName();
-            $file2->move($tujuan_upload, $nama_file2);
+            $nama_file1 = $file->getClientOriginalName();
+            $file->move($tujuan_upload, $nama_file1);            
+            // $nama_file2 = $file2->getClientOriginalName();
+            // $file2->move($tujuan_upload, $nama_file2);
             
             $kecamatan = Model::create([
                 'nama_kecamatan' => $request->kecamatan,
-                'file1' => $nama_file1,
-                'file2' => $nama_file2,
+                'geojson' => $nama_file1,
+                // 'file2' => $nama_file2,
             ]);
             
         }catch(\Exception $e){

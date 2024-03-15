@@ -16,8 +16,9 @@ class CreateKecamatansTable extends Migration
         Schema::create('kecamatan', function (Blueprint $table) {
             $table->integer('id_kecamatan', 11);
             $table->string('nama_kecamatan', 100);
-            $table->string('file1', 100)->nullable();
-            $table->string('file2', 100)->nullable();
+            $table->string('geojson', 100)->nullable();
+            $table->string('nama_var', 100)->nullable();
+            $table->string('lang', 100)->nullable();
             $table->timestamps();
         });
     }

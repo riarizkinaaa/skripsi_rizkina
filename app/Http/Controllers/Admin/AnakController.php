@@ -128,17 +128,26 @@ class AnakController extends Controller
         return response()->json( $data);
     }
     public function anakList(Request $request)
-    {
-        $data = Model::join('kecamatan', 'anak.id_kecamatan', '=', 'kecamatan.id_kecamatan')
-        ->select('kecamatan.nama_kecamatan', Model::raw('COUNT(*) as total_anak'))
+{
+    $data = Model::join('kecamatan', 'anak.id_kecamatan', '=', 'kecamatan.id_kecamatan')
+        ->select(
+            'kecamatan.nama_kecamatan',
+            'kecamatan.nama_var',
+            Model::raw('COUNT(*) as total_anak'),
+            Model::raw('SUM(CASE WHEN anak.status_anak = 1 THEN 1 ELSE 0 END) as jumlah_yatim'),
+            Model::raw('SUM(CASE WHEN anak.status_anak = 2 THEN 1 ELSE 0 END) as jumlah_piatu'),
+            Model::raw('SUM(CASE WHEN anak.status_anak = 3 THEN 1 ELSE 0 END) as jumlah_yatim_piatu')
+        )
         ->whereYear('anak.tgl_lahir', '>', now()->year - 19)
-        ->groupBy('kecamatan.nama_kecamatan')
+        ->groupBy('kecamatan.nama_kecamatan', 'kecamatan.nama_var')
         ->get();
+
+    return response()->json(['anak' => $data]);
+}
+
+
+
     
-
-    return response()->json($data);
-    }
-
 
     public function store(Request $request)
     {

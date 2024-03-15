@@ -1,6 +1,6 @@
-var batu_keliang = {
+var batukliang = {
     type: "FeatureCollection",
-    name: "batu_keliang",
+    name: "batukeliang",
     crs: {
         type: "name",
         properties: { name: "urn:ogc:def:crs:OGC:1.3:CRS84" },

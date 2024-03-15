@@ -202,7 +202,7 @@
         <script src="<?php echo e(asset('assets/js/chart/amchart/animated.js')); ?>"></script>
         
         <script type="text/javascript" src="<?php echo e(asset('assets/js/leaflet/batu_keliang_utara.js')); ?>"></script>
-        <script type="text/javascript" src="<?php echo e(asset('assets/semuafile/batu_keliang.js')); ?>"></script>
+        <script type="text/javascript" src="<?php echo e(asset('assets/js/leflet/batukeliang.js')); ?>"></script>
         <script type="text/javascript" src="<?php echo e(asset('assets/semuafile/praya_tengah.js')); ?>"></script>
         <script type="text/javascript" src="<?php echo e(asset('assets/semuafile/kopang.js')); ?>"></script>
         <script type="text/javascript" src="<?php echo e(asset('assets/semuafile/janapria.js')); ?>"></script>
@@ -223,6 +223,7 @@
                 maxZoom: 19,
             }).addTo(map);
 
+            // Control that shows state info on hover
             const info = L.control();
 
             info.onAdd = function(map) {
@@ -230,7 +231,7 @@
                 this.update();
                 return this._div;
             };
-
+            // Menambahkan base layers
             const baseLayers = {
                 "OpenStreetMap": L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     maxZoom: 19,
@@ -243,25 +244,28 @@
                 })
             };
 
+            // Menambahkan overlay layers
             const overlayLayers = {
-                "Cities": L.layerGroup(),
-                "Parks": L.layerGroup(),
-                "Yatim Piatu": L.layerGroup()
+                "Yatim Piatu": L.layerGroup() // Anda bisa menambahkan data ke layer ini
             };
 
+            // Membuat control layers
             const controlLayers = L.control.layers(baseLayers, overlayLayers, {
-                position: 'bottomleft'
+                position: 'bottomleft' // Menentukan posisi di bagian bawah kiri
             }).addTo(map);
 
+
+
             info.update = function(props) {
-                const contents = props ?
-                    `<b>${props.NAMOBJ}</b><br />${props.density} Orang: 'Arahkan kursor ke salah satu Kecamatan'` :
-                    'Hover over a state';
+                const contents = props ? `<b>${props.NAMOBJ}</b><br/>${props.density}` :
+                    "Arahkan kursor ke salah satu Kecamatan Orang:";
                 this._div.innerHTML = `<h4>Jumlah Anak Yatim Piatu di Kab Lombok Tengah</h4>${contents}`;
             };
 
+
             info.addTo(map);
 
+            // Get color depending on population density value
             function getColor(d) {
                 return d > 1000 ? '#800026' :
                     d > 500 ? '#BD0026' :
@@ -298,6 +302,40 @@
                 info.update(layer.feature.properties);
             }
 
+            const layers = []; // Array to store GeoJSON layers
+
+            fetch('/superadmin/geojson-data')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data); // Periksa struktur data yang diterima
+                    data.anak.forEach(kecamatan => {
+                        const density = kecamatan.total_anak;
+                        const NAMOBJ = kecamatan.nama_kecamatan;
+                        const geojsonFeatures = kecamatan.nama_var;
+                        const nama_var = window[geojsonFeatures];
+                        if (nama_var && nama_var.features && nama_var.features[0] && nama_var.features[0]
+                            .properties) {
+                            nama_var.features[0].properties.density = density;
+                            nama_var.features[0].properties.status_anak = {
+                                jumlah_yatim: kecamatan.jumlah_yatim,
+                                jumlah_piatu: kecamatan.jumlah_piatu,
+                                jumlah_yatim_piatu: kecamatan.jumlah_yatim_piatu
+                            };
+                            const layerKecamatan = L.geoJson(nama_var, {
+                                style,
+                                onEachFeature,
+                            }).addTo(map);
+                            layers.push(layerKecamatan);
+                        }
+                    });
+                })
+                .catch(error => console.error('Error fetching /superadmin/geojson-data:', error));
+
             function resetHighlight(e) {
                 const layer = e.target;
 
@@ -317,6 +355,12 @@
             }
 
             function onEachFeature(feature, layer) {
+                let tooltipContent = "<b>" + feature.properties.NAMOBJ + "</b><br/>" +
+                    "Jumlah Anak: " + feature.properties.density + "<br/>" +
+                    "Jumlah Yatim: " + feature.properties.status_anak.jumlah_yatim + "<br/>" +
+                    "Jumlah Piatu: " + feature.properties.status_anak.jumlah_piatu + "<br/>" +
+                    "Jumlah Yatim Piatu: " + feature.properties.status_anak.jumlah_yatim_piatu;
+                layer.bindTooltip(tooltipContent);
                 layer.on({
                     mouseover: highlightFeature,
                     mouseout: resetHighlight,
@@ -329,7 +373,6 @@
             });
 
             legend.onAdd = function(map) {
-
                 const div = L.DomUtil.create('div', 'info legend');
                 const grades = [0, 10, 20, 50, 100, 200, 500, 1000];
                 const labels = [];
@@ -339,8 +382,8 @@
                     from = grades[i];
                     to = grades[i + 1];
 
-                    labels.push(`<i style="background:${getColor(from + 1)}"></i> ${from}${to ? '&ndash;' + to : '+'}`);
-
+                    labels.push('<i style="background:' + getColor(from + 1) + '"></i> ' +
+                        from + (to ? '&ndash;' + to : '+'));
                 }
 
                 div.innerHTML = labels.join('<br>');
@@ -348,97 +391,6 @@
             };
 
             legend.addTo(map);
-
-            const dataGeoJSON = [{
-                    nama: "Batu Keliang Utara",
-                    geojson: batu_keliang_utara,
-                },
-                {
-                    nama: "Batukliang",
-                    geojson: batu_keliang,
-                },
-                {
-                    nama: "Kopang",
-                    geojson: kopang,
-                },
-                {
-                    nama: "Praya Tengah",
-                    geojson: praya_tengah,
-                },
-                {
-                    nama: "Praya Timur",
-                    geojson: praya_timur,
-                },
-                {
-                    nama: "Praya Barat",
-                    geojson: praya_barat,
-                },
-                {
-                    nama: "Praya Barat Daya",
-                    geojson: praya_barat_daya,
-                },
-                {
-                    nama: "Praya",
-                    geojson: praya,
-                },
-                {
-                    nama: "Peringgarata",
-                    geojson: peringgarata,
-                },
-                {
-                    nama: "Jonggat",
-                    geojson: jonggat,
-                },
-                {
-                    nama: "Pujut",
-                    geojson: pujut,
-                },
-                {
-                    nama: "Janapria",
-                    geojson: janapria,
-                },
-            ];
-
-            for (let i = 0; i < dataGeoJSON.length; i++) {
-                const namaKecamatan = dataGeoJSON[i].nama;
-                const geojsonKecamatan = dataGeoJSON[i].geojson;
-
-                const layerKecamatan = L.geoJson(geojsonKecamatan, {
-                    style,
-                    onEachFeature,
-                }).addTo(map);
-
-                overlayLayers[namaKecamatan] = layerKecamatan;
-                controlLayers.addOverlay(layerKecamatan, namaKecamatan);
-            }
-
-            fetch('/superadmin/geojson-data')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log(data);
-                    data.forEach(kecamatan => {
-                        const density = kecamatan.total_anak;
-                        const geojsonFeatures = kecamatan.geojson.features;
-
-                        if (geojsonFeatures) {
-                            const layer = L.geoJson(geojsonFeatures, {
-                                style: style,
-                                onEachFeature: onEachFeature
-                            });
-
-                            overlayLayers[kecamatan.nama] = layer;
-                            controlLayers.addOverlay(layer, kecamatan.nama);
-                        } else {
-                            console.error('GeoJSON features not found:', kecamatan);
-                        }
-                    });
-                })
-                .catch(error => console.error('Error fetching /superadmin/geojson-data:', error));
         </script>
 
 

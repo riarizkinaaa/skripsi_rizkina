@@ -254,7 +254,7 @@
                         pieSeriesStatusAnak.innerRadius = am4core.percent(50);
                         pieSeriesStatusAnak.ticks.template.disabled = true;
                         pieSeriesStatusAnak.labels.template.disabled = true;
-                        pieSeriesStatusAnak.labels.template.text = "{value} orang";
+
                         // Set label text to display real values instead of percentages
                         // pieSeriesStatusAnak.labels.template.text = "{value} orang";
                         // Menambahkan legenda
