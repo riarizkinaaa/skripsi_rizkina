@@ -144,11 +144,6 @@ class AnakController extends Controller
 
     return response()->json(['anak' => $data]);
 }
-
-
-
-    
-
     public function store(Request $request)
     {
         $this->validate($request, [

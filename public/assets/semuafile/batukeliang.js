@@ -1,45 +1,13 @@
-var batukliang = {
-    type: "FeatureCollection",
-    name: "batukeliang",
-    crs: {
-        type: "name",
-        properties: { name: "urn:ogc:def:crs:OGC:1.3:CRS84" },
-    },
-    features: [{
-        type: "Feature",
-        properties: {
-            KDPPUM: null,
-            NAMOBJ: "Batu keliang",
-            density: 4051,
-            REMARK: "Wilayah Administrasi Kecamatan",
-            KDPBPS: null,
-            FCODE: "BA03060060",
-            LUASWH: 0.0,
-            UUPP: null,
-            SRS_ID: null,
-            LCODE: null,
-            METADATA: null,
-            KDEBPS: null,
-            KDEPUM: null,
-            KDCBPS: null,
-            KDCPUM: null,
-            KDBBPS: null,
-            KDBPUM: null,
-            WADMKD: null,
-            WIADKD: null,
-            WADMKC: "Batuliang",
-            WIADKC: null,
-            WADMKK: "Lombok Tengah",
-            WIADKK: null,
-            WADMPR: "Nusa Tenggara Barat",
-            WIADPR: null,
-            TIPADM: 0,
-            SHAPE_Leng: 0.38815241774499998,
-            SHAPE_Area: 0.0043309877239100002,
-        },
-        geometry: {
-            type: "Polygon",
-            coordinates: [
+var batukeliang = {
+    "type": "FeatureCollection",
+    "name": "batukeliang",
+    "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+    "features": [{
+        "type": "Feature",
+        "properties": { "KDPPUM": null, "NAMOBJ": "Batukeliang", "REMARK": "Wilayah Administrasi Kecamatan", "KDPBPS": null, "FCODE": "BA03060060", "LUASWH": 0.0, "UUPP": null, "SRS_ID": null, "LCODE": null, "METADATA": null, "KDEBPS": null, "KDEPUM": null, "KDCBPS": null, "KDCPUM": null, "KDBBPS": null, "KDBPUM": null, "WADMKD": null, "WIADKD": null, "WADMKC": "Batuliang", "WIADKC": null, "WADMKK": "Lombok Tengah", "WIADKK": null, "WADMPR": "Nusa Tenggara Barat", "WIADPR": null, "TIPADM": 0, "SHAPE_Leng": 0.38815241774499998, "SHAPE_Area": 0.0043309877239100002 },
+        "geometry": {
+            "type": "Polygon",
+            "coordinates": [
                 [
                     [116.353204945, -8.61735110899999, 0.0],
                     [116.353248973000092, -8.6175780299999, 0.0],
@@ -1519,9 +1487,9 @@ var batukliang = {
                     [116.35274370700003, -8.617189269999926, 0.0],
                     [116.352979275000081, -8.617253515, 0.0],
                     [116.353114904000108, -8.617317759999899, 0.0],
-                    [116.353204945, -8.61735110899999, 0.0],
-                ],
-            ],
-        },
-    }, ],
+                    [116.353204945, -8.61735110899999, 0.0]
+                ]
+            ]
+        }
+    }]
 };

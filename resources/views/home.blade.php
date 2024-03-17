@@ -5,39 +5,47 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="viho admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
-    <meta name="keywords" content="admin template, viho admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="description"
+        content="viho admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+    <meta name="keywords"
+        content="admin template, viho admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="pixelstrap">
-    <link rel="icon" href="{{asset('assets/images/logo/icon-logo.png')}}" type="image/x-icon">
-    <link rel="shortcut icon" href="{{asset('assets/images/logo/icon-logo.png')}}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('assets/images/logo/icon-logo.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo/icon-logo.png') }}" type="image/x-icon">
     <title>PMKS - Anak Yatim Piatu</title>
     <!-- Google font-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+        rel="stylesheet">
     <!-- Font Awesome-->
-    <link rel="stylesheet" type="text/css" href="{{asset('/assets/css/fontawesome.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('/assets/css/fontawesome.css') }}">
     <!-- ico-font-->
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/icofont.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/icofont.css') }}">
     <!-- Themify icon-->
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/themify.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/themify.css') }}">
     <!-- Flag icon-->
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/flag-icon.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/flag-icon.css') }}">
     <!-- Feather icon-->
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/feather-icon.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/feather-icon.css') }}">
     <!-- Plugins css start-->
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/animate.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/owlcarousel.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/animate.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/owlcarousel.css') }}">
     <!-- Plugins css Ends-->
     <!-- Bootstrap css-->
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/bootstrap.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.css') }}">
     <!-- App css-->
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}">
-    <link id="color" rel="stylesheet" href="{{asset('assets/css/color-1.css')}}" media="screen">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
+    <link id="color" rel="stylesheet" href="{{ asset('assets/css/color-1.css') }}" media="screen">
     <!-- Responsive css-->
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/responsive.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/animate.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/responsive.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/animate.css') }}">
     <style>
         #chartdiv {
             width: 100%;
@@ -64,7 +72,9 @@
                 <div class="custom-container">
                     <div class="row">
                         <div class="col-12">
-                            <nav class="navbar navbar-light p-0" id="navbar-example2"><a class="navbar-brand" href="javascript:void(0)"> <img class="img-fluid" src="{{asset('assets/images/logo/logo.png')}}" alt=""></a>
+                            <nav class="navbar navbar-light p-0" id="navbar-example2"><a class="navbar-brand"
+                                    href="javascript:void(0)"> <img class="img-fluid"
+                                        src="{{ asset('assets/images/logo/logo.png') }}" alt=""></a>
                                 <ul class="landing-menu nav nav-pills">
                                     <li class="nav-item menu-back">back<i class="fa fa-angle-right"></i></li>
                                     <li class="nav-item"><a class="nav-link" href="">Branda</a></li>
@@ -81,15 +91,21 @@
             </header>
             <!-- header end-->
             <!--home section start-->
-            <section class="landing-home section-pb-space" id="home"><img class="img-fluid bg-img-cover" src="{{asset('assets/images/landing/landing-home/home-bg2.jpg')}}" alt="">
+            <section class="landing-home section-pb-space" id="home"><img class="img-fluid bg-img-cover"
+                    src="{{ asset('assets/images/landing/landing-home/home-bg2.jpg') }}" alt="">
                 <div class="custom-container">
                     <div class="row">
                         <div class="col-12">
                             <div class="landing-home-contain">
                                 <div>
-                                    <div class="landing-logo"><img class="img-fluid" src="{{asset('assets/images/logo/icon-logo.png')}}" alt=""></div>
+                                    <div class="landing-logo"><img class="img-fluid"
+                                            src="{{ asset('assets/images/logo/icon-logo.png') }}" alt="">
+                                    </div>
                                     <h2>PMKS <span> Anak Yatim Piatu</span></h2>
-                                    <p>Sebuah platform teknologi inovatif yang bertujuan untuk mengumpulkan, menyimpan, dan mengelola data yang berkaitan dengan anak-anak yang telah kehilangan satu atau kedua orang tua (yatim piatu) secara efisien dan terorganisir.</p><a class="btn-landing btn-lg" href="">Selengkapnya</a>
+                                    <p>Sebuah platform teknologi inovatif yang bertujuan untuk mengumpulkan, menyimpan,
+                                        dan mengelola data yang berkaitan dengan anak-anak yang telah kehilangan satu
+                                        atau kedua orang tua (yatim piatu) secara efisien dan terorganisir.</p><a
+                                        class="btn-landing btn-lg" href="">Selengkapnya</a>
                                 </div>
                             </div>
                         </div>
@@ -107,10 +123,17 @@
                     <div class="row demo-block demo-imgs justify-content-center">
                         <div class="col-lg-8 col-sm-10 ">
                             <div class="demo-box fs-5">
-                                <p class="fs-5 text-center">Aplikasi Pendataan Anak Yatim Piatu adalah sebuah platform teknologi inovatif yang bertujuan untuk mengumpulkan, menyimpan, dan mengelola data yang berkaitan dengan anak-anak yang telah kehilangan satu atau kedua orang tua (yatim piatu) secara efisien dan terorganisir. Aplikasi ini dirancang untuk memberikan dukungan kepada lembaga, organisasi, dan pihak terkait dalam menjalankan program-program sosial, pendidikan, dan kesejahteraan yang spesifik untuk anak-anak yang berada dalam kondisi yatim piatu.
+                                <p class="fs-5 text-center">Aplikasi Pendataan Anak Yatim Piatu adalah sebuah platform
+                                    teknologi inovatif yang bertujuan untuk mengumpulkan, menyimpan, dan mengelola data
+                                    yang berkaitan dengan anak-anak yang telah kehilangan satu atau kedua orang tua
+                                    (yatim piatu) secara efisien dan terorganisir. Aplikasi ini dirancang untuk
+                                    memberikan dukungan kepada lembaga, organisasi, dan pihak terkait dalam menjalankan
+                                    program-program sosial, pendidikan, dan kesejahteraan yang spesifik untuk anak-anak
+                                    yang berada dalam kondisi yatim piatu.
                                 </p>
                                 <p class="fs-5 text-center">
-                                    Berikut ini adalah beberapa data yang dimasukkan dalam Sistem Pendataan Anak Yatim Piatu: <br>
+                                    Berikut ini adalah beberapa data yang dimasukkan dalam Sistem Pendataan Anak Yatim
+                                    Piatu: <br>
                                     1. Data Identitas <br>
                                     2. Data Keluarg <br>
                                     3. Pendidikan dan Keterampilan
@@ -135,7 +158,8 @@
                                         <i data-feather="user"></i>
                                     </div>
                                     <h5 id="anak_yatim"></h5>
-                                    <p>Anak Yatim</p><a class="btn-arrow arrow-primary" href="javascript:void(0)" id="jumlah_yatim"></a>
+                                    <p>Anak Yatim</p><a class="btn-arrow arrow-primary" href="javascript:void(0)"
+                                        id="jumlah_yatim"></a>
 
                                 </div>
                             </div>
@@ -147,7 +171,8 @@
                                         <i data-feather="user-minus"></i>
                                     </div>
                                     <h5 id="anak_piatu"></h5>
-                                    <p>Anak Piatu</p><a class="btn-arrow arrow-primary" href="javascript:void(0)" id="jumlah_piatu"></a>
+                                    <p>Anak Piatu</p><a class="btn-arrow arrow-primary" href="javascript:void(0)"
+                                        id="jumlah_piatu"></a>
                                     <div class="parrten">
 
                                     </div>
@@ -161,7 +186,8 @@
                                         <i data-feather="user-plus"></i>
                                     </div>
                                     <h5 id="yatim_piatu"></h5>
-                                    <p>Anak Yatim Piatu</p><a class="btn-arrow arrow-primary" href="javascript:void(0)" id="jumlah_yatim_piatu"> </a>
+                                    <p>Anak Yatim Piatu</p><a class="btn-arrow arrow-primary"
+                                        href="javascript:void(0)" id="jumlah_yatim_piatu"> </a>
                                     <div class="parrten">
 
                                     </div>
@@ -175,7 +201,7 @@
                                         <i data-feather="users"></i>
                                     </div>
                                     <h5 id="semua"></h5>
-                                    <p>Semua</p><a class="btn-arrow arrow-primary" href="javascript:void(0)"><i class="toprightarrow-primary fa fa-arrow-up me-2"></i>100% </a>
+                                    <p>Semua</p><a class="btn-arrow arrow-primary" href="javascript:void(0)"></a>
                                     <div class="parrten">
 
                                     </div>
@@ -214,6 +240,14 @@
                                 <div class="card-header">
                                     <div class="header-top d-sm-flex justify-content-between align-items-center">
                                         <h5>Data Kecamtan</h5>
+                                        <div class="col-md-2">
+                                            <select id="tahun" class="form-select">
+                                                <option value="2022">2022</option>
+                                                <option value="2023">2023</option>
+                                                <option value="2024">2024</option>
+                                                <!-- Tambahkan opsi tahun lainnya jika diperlukan -->
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -234,7 +268,8 @@
                 <div class="custom-container">
                     <div class="row">
                         <div class="col-md-6 col-sm-2">
-                            <div class="footer-contain"><img class="img-fluid" src="{{asset('assets/images/logo/logo.png" alt=""></div>
+                            <div class="footer-contain"><img class="img-fluid"
+                                    src="{{asset('assets/images/logo/logo.png" alt=""></div>
                         </div>
                         <div class="col-md-6 col-sm-10">
                             <div class="footer-contain">
@@ -283,28 +318,38 @@
                 success: function(data) {
                     // console.log(data)
                     // status anak
-                    const anak_yatim = data['anak'].filter((status_anak) => status_anak.status_anak == 1);
-                    const anak_piatu = data['anak'].filter((status_anak) => status_anak.status_anak == 2);
-                    const yatim_piatu = data['anak'].filter((status_anak) => status_anak.status_anak == 3);
 
-                    const jumlah_yatim = anak_yatim.length / data['anak'].length * 100;
-                    const jumlah_piatu = anak_piatu.length / data['anak'].length * 100;
-                    const jumlah_yatim_piatu = yatim_piatu.length / data['anak'].length * 100;
+                    const today = new Date();
+                    const anak_dibawah_19_tahun = data['anak'].filter(anak => {
+                        const tahunLahir = new Date(anak.tgl_lahir);
+                        const tahunLahirPlus19 = new Date(tahunLahir.getFullYear() + 19,
+                            tahunLahir.getMonth(), tahunLahir.getDate());
+                        return tahunLahirPlus19 >
+                            today; // Filter anak yang masih di bawah 19 tahun
+                    });
+
+                    const anak_yatim = anak_dibawah_19_tahun.filter(status_anak => status_anak
+                        .status_anak == 1);
+                    const anak_piatu = anak_dibawah_19_tahun.filter(status_anak => status_anak
+                        .status_anak == 2);
+                    const yatim_piatu = anak_dibawah_19_tahun.filter(status_anak => status_anak
+                        .status_anak == 3);
+
+                    const jumlah_yatim = anak_yatim.length;
+                    const jumlah_piatu = anak_piatu.length;
+                    const jumlah_yatim_piatu = yatim_piatu.length;
                     // jenis kelamin
-                    const laki_laki = data['anak'].filter((jenis_kelamin) => jenis_kelamin.jenis_kelamin == 1);
-                    const perempuan = data['anak'].filter((jenis_kelamin) => jenis_kelamin.jenis_kelamin == 0);
-                    const jumlah_lk = laki_laki.length / data['anak'].length * 100;
-                    const jumlah_pr = perempuan.length / data['anak'].length * 100;
+                    const laki_laki = anak_dibawah_19_tahun.filter(jenis_kelamin => jenis_kelamin
+                        .jenis_kelamin == 1);
+                    const perempuan = anak_dibawah_19_tahun.filter(jenis_kelamin => jenis_kelamin
+                        .jenis_kelamin == 0);
+                    const jumlah_lk = laki_laki.length;
+                    const jumlah_pr = perempuan.length;
 
-
-                    // const kecamtan = data.filter((kecamtan) => kecamtan.id_kecamatan == id_kecamatan);
-                    $("#anak_yatim").append(anak_yatim.length + " Orang")
-                    $("#anak_piatu").append(anak_piatu.length + " Orang")
-                    $("#yatim_piatu").append(yatim_piatu.length + " Orang")
-                    $("#semua").append(data['anak'].length + " Orang")
-                    $("#jumlah_yatim").append(jumlah_yatim.toFixed(2) + " %")
-                    $("#jumlah_piatu").append(jumlah_piatu.toFixed(2) + " %")
-                    $("#jumlah_yatim_piatu").append(jumlah_yatim_piatu.toFixed(2) + " %")
+                    $("#anak_yatim").append(jumlah_yatim);
+                    $("#anak_piatu").append(jumlah_piatu);
+                    $("#yatim_piatu").append(jumlah_yatim_piatu);
+                    $("#semua").append(anak_dibawah_19_tahun.length);
                     // console.log(jumlah_yatim);
                     // console.log(jumlah_piatu);
                     // console.log(jumlah_yatim_piatu);
@@ -407,86 +452,98 @@
 
 
                     // data kecamatan
-                    var chart = am4core.create("data_kecamatan", am4charts.XYChart);
-                    chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
-                    // var objek = {}
-                    var datakec = []
-                    var data_max = []
-                    for (let i = 0; i < data['kecamatan'].length; i++) {
-                        const kecamatan = data['anak'].filter((kecamatan) => kecamatan.id_kecamatan == data['kecamatan'][i]['id_kecamatan']);
-                        let kec = {
-                            kecamatan: data['kecamatan'][i]['nama_kecamatan'],
-                            jumlah_anak: kecamatan.length
+                    function buildChart(data, tahunYangDipilih, batasUsia) {
+                        var chart = am4core.create("data_kecamatan", am4charts.XYChart);
+                        chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+                        var datakec = [];
+                        var data_max = [];
+                        console.log(tahunYangDipilih);
+
+                        // Filter data anak berdasarkan tahun yang dipilih
+                        var dataAnakFiltered = data['anak'].filter(anak => {
+                            const tahunLahir = new Date(anak.tgl_lahir).getFullYear();
+                            const usia = tahunYangDipilih - tahunLahir;
+                            return usia < batasUsia;
+                        });
+
+                        // Output dataAnakFiltered ke konsol
+                        console.log("Data anak yang dipilih:", dataAnakFiltered);
+
+                        for (let i = 0; i < data['kecamatan'].length; i++) {
+                            const kecamatan = dataAnakFiltered.filter(anak => anak.id_kecamatan == data[
+                                'kecamatan'][i]['id_kecamatan']);
+                            let kec = {
+                                kecamatan: data['kecamatan'][i]['nama_kecamatan'],
+                                jumlah_anak: kecamatan.length
+                            };
+                            datakec.push(kec);
+                            data_max.push(kecamatan.length);
                         }
-                        datakec.push(kec)
-                        data_max.push(kecamatan.length)
+
+                        chart.data = datakec;
+                        var max = Math.max.apply(null, data_max);
+
+                        var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+                        categoryAxis.renderer.grid.template.location = 0;
+                        categoryAxis.dataFields.category = "kecamatan";
+                        categoryAxis.renderer.minGridDistance = 20;
+                        categoryAxis.renderer.inside = false;
+                        categoryAxis.start = 0;
+                        categoryAxis.fontSize = 12;
+                        categoryAxis.renderer.grid.template.disabled = true;
+                        var label = categoryAxis.renderer.labels.template;
+                        label.wrap = false;
+                        label.maxWidth = 160;
+                        label.tooltipText = "{kecamatan}";
+
+                        categoryAxis.events.on("sizechanged", function(ev) {
+                            var axis = ev.target;
+                            var cellWidth = axis.pixelWidth / (axis.endIndex - axis.startIndex);
+                            if (cellWidth < axis.renderer.labels.template.maxWidth) {
+                                axis.renderer.labels.template.rotation = -75;
+                                axis.renderer.labels.template.horizontalCenter = "right";
+                                axis.renderer.labels.template.verticalCenter = "middle";
+                            } else {
+                                axis.renderer.labels.template.rotation = 0;
+                                axis.renderer.labels.template.horizontalCenter = "middle";
+                                axis.renderer.labels.template.verticalCenter = "top";
+                            }
+                        });
+
+                        var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+                        valueAxis.min = 0;
+                        valueAxis.max = max + 100;
+                        valueAxis.strictMinMax = true;
+                        valueAxis.renderer.minGridDistance = 20;
+
+                        var series = chart.series.push(new am4charts.ColumnSeries());
+                        series.dataFields.categoryX = "kecamatan";
+                        series.dataFields.valueY = "jumlah_anak";
+                        series.columns.template.tooltipText = "{valueY.value}";
+                        series.columns.template.tooltipY = 0;
+                        series.columns.template.strokeOpacity = 0;
+
+                        series.columns.template.adapter.add("fill", function(fill, target) {
+                            return chart.colors.getIndex(target.dataItem.index);
+                        });
                     }
-                    // console.log(datakec)
-                    // console.log(data_max)
-                    chart.data = datakec
-                    var max = Math.max.apply(null, data_max);
 
-                    var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-                    categoryAxis.renderer.grid.template.location = 0;
-                    categoryAxis.dataFields.category = "kecamatan";
-                    categoryAxis.renderer.minGridDistance = 20;
-                    categoryAxis.renderer.inside = false;
-                    categoryAxis.start = 0;
-                    categoryAxis.fontSize = 12;
-                    categoryAxis.renderer.grid.template.disabled = true;
-                    var label = categoryAxis.renderer.labels.template;
-                    label.wrap = false;
-                    label.maxWidth = 160;
-                    label.tooltipText = "{kecamatan}";
+                    // Inisialisasi grafik dengan tahun 2024 saat halaman dimuat
+                    var tahunYangDipilih = 2024;
+                    var batasUsia = 19;
+                    buildChart(data, tahunYangDipilih, batasUsia);
 
-                    categoryAxis.events.on("sizechanged", function(ev) {
-                        var axis = ev.target;
-                        var cellWidth = axis.pixelWidth / (axis.endIndex - axis.startIndex);
-                        if (cellWidth < axis.renderer.labels.template.maxWidth) {
-                            axis.renderer.labels.template.rotation = -75;
-                            axis.renderer.labels.template.horizontalCenter = "right";
-                            axis.renderer.labels.template.verticalCenter = "middle";
-                        } else {
-                            axis.renderer.labels.template.rotation = 0;
-                            axis.renderer.labels.template.horizontalCenter = "middle";
-                            axis.renderer.labels.template.verticalCenter = "top";
-                        }
+                    // Tambahkan event listener untuk menangani perubahan pada elemen select
+                    document.getElementById('tahun').addEventListener('change', function() {
+                        tahunYangDipilih = parseInt(this
+                            .value
+                        ); // Ambil nilai tahun yang dipilih dari elemen select dan ubah ke tipe integer
+                        console.log("Tahun yang dipilih:",
+                            tahunYangDipilih); // Cek apakah event listener dipicu dengan benar
+                        // Panggil kembali fungsi untuk membangun grafik dengan tahun yang baru dipilih
+                        buildChart(data, tahunYangDipilih, batasUsia);
                     });
 
-                    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-                    valueAxis.min = 0;
-                    valueAxis.max = max + 100;
-                    valueAxis.strictMinMax = true;
-                    valueAxis.renderer.minGridDistance = 20;
-
-                    /*
-                    // this is exactly the same, but with events
-                    axisBreak.events.on("over", function() {
-                        axisBreak.animate(
-                        [{ property: "breakSize", to: 1 }, { property: "opacity", to: 0.1 }],
-                        1500,
-                        am4core.ease.sinOut
-                        );
-                    });
-                    axisBreak.events.on("out", function() {
-                        axisBreak.animate(
-                        [{ property: "breakSize", to: 0.005 }, { property: "opacity", to: 1 }],
-                        1000,
-                        am4core.ease.quadOut
-                        );
-                    });*/
-
-                    var series = chart.series.push(new am4charts.ColumnSeries());
-                    series.dataFields.categoryX = "kecamatan";
-                    series.dataFields.valueY = "jumlah_anak";
-                    series.columns.template.tooltipText = "{valueY.value}";
-                    series.columns.template.tooltipY = 0;
-                    series.columns.template.strokeOpacity = 0;
-
-                    // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
-                    series.columns.template.adapter.add("fill", function(fill, target) {
-                        return chart.colors.getIndex(target.dataItem.index);
-                    });
 
 
                 }

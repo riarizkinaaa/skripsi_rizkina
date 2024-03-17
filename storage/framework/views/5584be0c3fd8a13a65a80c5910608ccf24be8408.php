@@ -1,5 +1,3 @@
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 <div class="page-main-header">
     <div class="main-header-right row m-0">
         <div class="main-header-left">
@@ -35,10 +33,6 @@
                     <div class="mode"><i class="fa fa-moon-o"></i></div>
                 </li>
                 <li class="onhover-dropdown p-0">
-                    
-                </li>
-                <!-- Pastikan variabel $kecamatan tersedia di dalam tampilan -->
-                <li class="onhover-dropdown p-0">
                     <a href="<?php echo e(route('logout')); ?>" class="btn btn-primary-light" type="button"><i
                             data-feather="log-out"></i>Log out</a>
                 </li>
@@ -47,4 +41,4 @@
         <div class="d-lg-none mobile-toggle pull-right w-auto"><i data-feather="more-horizontal"></i></div>
     </div>
 </div>
-<?php /**PATH C:\Users\ASUS\Music\skripsi\pmks_pengembangan_2-master\resources\views/layouts/admin/partials/header.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\Users\ASUS\Music\skripsi\pmks_pengembangan_2-master\resources\views/layouts/pimpinan/partials/header.blade.php ENDPATH**/ ?>

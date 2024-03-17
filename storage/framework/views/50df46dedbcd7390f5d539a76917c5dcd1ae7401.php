@@ -79,7 +79,7 @@
                                             <td><?php echo e($i++); ?></td>
                                             <td><?php echo e($item->nama_kecamatan); ?></td>
                                             <td>
-                                                <?php if($item->file1): ?>
+                                                <?php if($item->geojson): ?>
                                                     <?php echo e(basename($item->geojson, '.' . pathinfo($item->file1, PATHINFO_EXTENSION))); ?>
 
                                                 <?php else: ?>

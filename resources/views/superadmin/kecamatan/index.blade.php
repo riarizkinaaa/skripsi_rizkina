@@ -76,7 +76,7 @@
                                             <td>{{ $i++ }}</td>
                                             <td>{{ $item->nama_kecamatan }}</td>
                                             <td>
-                                                @if ($item->file1)
+                                                @if ($item->geojson)
                                                     {{ basename($item->geojson, '.' . pathinfo($item->file1, PATHINFO_EXTENSION)) }}
                                                 @else
                                                     Tidak Ada File

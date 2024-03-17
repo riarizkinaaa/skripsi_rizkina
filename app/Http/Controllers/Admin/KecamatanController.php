@@ -42,7 +42,7 @@ class KecamatanController extends Controller
                 'geojson' => 'required',
                 // 'file2' => 'required',
             ]);
-            $file = $request->file('geohson');
+            $file = $request->file('geojson');
             // $file2 = $request->file('file2');
             
             $tujuan_upload = 'assets/semuafile/';
@@ -59,7 +59,7 @@ class KecamatanController extends Controller
             ]);
             
         }catch(\Exception $e){
-            dd($e);
+            dd($request);
             // dd($request->file('file2'));
         
         }

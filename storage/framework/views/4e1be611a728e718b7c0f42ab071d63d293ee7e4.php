@@ -195,14 +195,12 @@
     <?php $__env->startPush('scripts'); ?>
         <script src="<?php echo e(asset('assets/js/chart/chartist/chartist.js')); ?>"></script>
         <script src="<?php echo e(asset('assets/js/chart/chartist/chartist-plugin-tooltip.js')); ?>"></script>
-
-
         <script src="<?php echo e(asset('assets/js/chart/amchart/core.js')); ?>"></script>
         <script src="<?php echo e(asset('assets/js/chart/amchart/charts.js')); ?>"></script>
         <script src="<?php echo e(asset('assets/js/chart/amchart/animated.js')); ?>"></script>
         
         <script type="text/javascript" src="<?php echo e(asset('assets/js/leaflet/batu_keliang_utara.js')); ?>"></script>
-        <script type="text/javascript" src="<?php echo e(asset('assets/js/leflet/batukeliang.js')); ?>"></script>
+        <script type="text/javascript" src="<?php echo e(asset('assets/semuafile/batukeliang.js')); ?>"></script>
         <script type="text/javascript" src="<?php echo e(asset('assets/semuafile/praya_tengah.js')); ?>"></script>
         <script type="text/javascript" src="<?php echo e(asset('assets/semuafile/kopang.js')); ?>"></script>
         <script type="text/javascript" src="<?php echo e(asset('assets/semuafile/janapria.js')); ?>"></script>
@@ -246,12 +244,12 @@
 
             // Menambahkan overlay layers
             const overlayLayers = {
-                "Yatim Piatu": L.layerGroup() // Anda bisa menambahkan data ke layer ini
+                // "Yatim Piatu": L.layerGroup() // Anda bisa menambahkan data ke layer ini
             };
 
             // Membuat control layers
             const controlLayers = L.control.layers(baseLayers, overlayLayers, {
-                position: 'bottomleft' // Menentukan posisi di bagian bawah kiri
+                position: 'bottomleft'
             }).addTo(map);
 
 
@@ -313,9 +311,9 @@
                     return response.json();
                 })
                 .then(data => {
-                    console.log(data); // Periksa struktur data yang diterima
+                    // console.log(data); 
                     data.anak.forEach(kecamatan => {
-                        const density = kecamatan.total_anak;
+                        const density = kecamatan.total_anak || 0; // Use default value directly
                         const NAMOBJ = kecamatan.nama_kecamatan;
                         const geojsonFeatures = kecamatan.nama_var;
                         const nama_var = window[geojsonFeatures];
@@ -327,14 +325,16 @@
                                 jumlah_piatu: kecamatan.jumlah_piatu,
                                 jumlah_yatim_piatu: kecamatan.jumlah_yatim_piatu
                             };
-                            const layerKecamatan = L.geoJson(nama_var, {
-                                style,
-                                onEachFeature,
-                            }).addTo(map);
-                            layers.push(layerKecamatan);
                         }
+                        const layerKecamatan = L.geoJson(nama_var, {
+                            style,
+                            onEachFeature,
+                        }).addTo(map);
+                        layers.push(layerKecamatan);
                     });
                 })
+
+
                 .catch(error => console.error('Error fetching /superadmin/geojson-data:', error));
 
             function resetHighlight(e) {
@@ -412,26 +412,29 @@
                                 today; // Filter anak yang masih di bawah 19 tahun
                         });
 
-                        const anak_yatim = anak_dibawah_19_tahun.filter(anak => anak.status_anak == 1);
-                        const anak_piatu = anak_dibawah_19_tahun.filter(anak => anak.status_anak == 2);
-                        const yatim_piatu = anak_dibawah_19_tahun.filter(anak => anak.status_anak == 3);
+                        const anak_yatim = anak_dibawah_19_tahun.filter(status_anak => status_anak
+                            .status_anak == 1);
+                        const anak_piatu = anak_dibawah_19_tahun.filter(status_anak => status_anak
+                            .status_anak == 2);
+                        const yatim_piatu = anak_dibawah_19_tahun.filter(status_anak => status_anak
+                            .status_anak == 3);
 
-                        const jumlah_yatim = anak_yatim.length / anak_dibawah_19_tahun.length * 100;
-                        const jumlah_piatu = anak_piatu.length / anak_dibawah_19_tahun.length * 100;
-                        const jumlah_yatim_piatu = yatim_piatu.length / anak_dibawah_19_tahun.length * 100;
+                        const jumlah_yatim = anak_yatim.length;
+                        const jumlah_piatu = anak_piatu.length;
+                        const jumlah_yatim_piatu = yatim_piatu.length;
 
-                        const laki_laki = anak_dibawah_19_tahun.filter(anak => anak.jenis_kelamin == 1);
-                        const perempuan = anak_dibawah_19_tahun.filter(anak => anak.jenis_kelamin == 0);
-                        const jumlah_lk = laki_laki.length / anak_dibawah_19_tahun.length * 100;
-                        const jumlah_pr = perempuan.length / anak_dibawah_19_tahun.length * 100;
+                        // Jenis kelamin
+                        const laki_laki = anak_dibawah_19_tahun.filter(jenis_kelamin => jenis_kelamin
+                            .jenis_kelamin == 1);
+                        const perempuan = anak_dibawah_19_tahun.filter(jenis_kelamin => jenis_kelamin
+                            .jenis_kelamin == 0);
+                        const jumlah_lk = laki_laki.length;
+                        const jumlah_pr = perempuan.length;
 
-                        $("#anak_yatim").append(anak_yatim.length + " Orang")
-                        $("#anak_piatu").append(anak_piatu.length + " Orang")
-                        $("#yatim_piatu").append(yatim_piatu.length + " Orang")
-                        $("#semua").append(anak_dibawah_19_tahun.length + " Orang")
-                        $("#jumlah_yatim").append(jumlah_yatim.toFixed(2) + " %")
-                        $("#jumlah_piatu").append(jumlah_piatu.toFixed(2) + " %")
-                        $("#jumlah_yatim_piatu").append(jumlah_yatim_piatu.toFixed(2) + " %")
+                        $("#anak_yatim").append(jumlah_yatim);
+                        $("#anak_piatu").append(jumlah_piatu);
+                        $("#yatim_piatu").append(jumlah_yatim_piatu);
+                        $("#semua").append(anak_dibawah_19_tahun.length);
 
                         // console.log(jumlah_yatim);
                         // console.log(jumlah_piatu);

@@ -15,6 +15,7 @@ class Kecamatan extends Model
     protected $fillable = [
         'nama_kecamatan',
         'geojson',
+        'nama_var',
     ];
 
     public function anak(): HasMany

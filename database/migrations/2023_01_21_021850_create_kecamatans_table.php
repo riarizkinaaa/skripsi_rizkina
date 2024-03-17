@@ -17,8 +17,8 @@ class CreateKecamatansTable extends Migration
             $table->integer('id_kecamatan', 11);
             $table->string('nama_kecamatan', 100);
             $table->string('geojson', 100)->nullable();
-            $table->string('nama_var', 100)->nullable();
-            $table->string('lang', 100)->nullable();
+            $table->string('nama_var')->nullable();
+            $table->string('lang',)->nullable();
             $table->timestamps();
         });
     }

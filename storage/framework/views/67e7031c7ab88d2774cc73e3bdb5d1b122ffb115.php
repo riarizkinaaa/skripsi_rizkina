@@ -1,8 +1,7 @@
-@extends('layouts.admin.master')
-@section('title', 'Dashboard')
+<?php $__env->startSection('title', 'Dashboard'); ?>
 
-@push('css')
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/animate.css') }}">
+<?php $__env->startPush('css'); ?>
+    <link rel="stylesheet" type="text/css" href="<?php echo e(asset('assets/css/animate.css')); ?>">
     <style>
         #chartdiv {
             width: 100%;
@@ -14,55 +13,9 @@
 
         }
     </style>
-    <style>
-        .leaflet-container {
-            height: 400px;
-            width: 600px;
-            max-width: 100%;
-            max-height: 100%;
-        }
-    </style>
-    <style>
-        #map {
-            width: 870px;
-            height: 500px;
-        }
-
-        .info {
-            padding: 6px 8px;
-            font: 14px/16px Arial, Helvetica, sans-serif;
-            background: white;
-            background: rgba(255, 255, 255, 0.8);
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-            border-radius: 5px;
-        }
-
-        .info h4 {
-            margin: 0 0 5px;
-            color: #777;
-        }
-
-        .legend {
-            text-align: left;
-            line-height: 18px;
-            color: #555;
-        }
-
-        .legend i {
-            width: 18px;
-            height: 18px;
-            float: left;
-            margin-right: 8px;
-            opacity: 0.7;
-        }
-    </style>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-@endpush
-@section('content')
-    @yield('breadcrumb-list')
+<?php $__env->stopPush(); ?>
+<?php $__env->startSection('content'); ?>
+    <?php echo $__env->yieldContent('breadcrumb-list'); ?>
     <!-- Container-fluid starts-->
     <div class="container-fluid dashboard-default-sec">
         <div class="row">
@@ -114,7 +67,7 @@
                             <i data-feather="users"></i>
                         </div>
                         <h5 id="semua"></h5>
-                        <p>Semua</p><a class="btn-arrow arrow-primary" href="javascript:void(0)"> </a>
+                        <p>Semua</p><a class="btn-arrow arrow-primary" href="javascript:void(0)"></a>
                         <div class="parrten">
 
                         </div>
@@ -154,13 +107,12 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="header-top d-sm-flex justify-content-between align-items-center">
-                            <h5>Data Kecamtan</h5>
+                            <h5>Data Kecamatan</h5>
                             <div class="col-md-2">
                                 <select id="tahun" class="form-select">
                                     <option value="2022">2022</option>
                                     <option value="2023">2023</option>
                                     <option value="2024">2024</option>
-                                    <!-- Tambahkan opsi tahun lainnya jika diperlukan -->
                                 </select>
                             </div>
                         </div>
@@ -171,239 +123,30 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-            </div>
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="header-top d-sm-flex justify-content-between align-items-center">
-                            <h5>Peta</h5>
-                        </div>
-                    </div>
-                    <div class="card-body">
-
-                        <!-- Tempatkan peta di dalam div dengan id "map" -->
-                        <div id='map'>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
-        {{-- @include('maps/peta') --}}
+        <?php echo $__env->make('maps/map', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     </div>
     <!-- Container-fluid Ends-->
-    @push('scripts')
-        <script src="{{ asset('assets/js/chart/chartist/chartist.js') }}"></script>
-        <script src="{{ asset('assets/js/chart/chartist/chartist-plugin-tooltip.js') }}"></script>
-        <script src="{{ asset('assets/js/chart/amchart/core.js') }}"></script>
-        <script src="{{ asset('assets/js/chart/amchart/charts.js') }}"></script>
-        <script src="{{ asset('assets/js/chart/amchart/animated.js') }}"></script>
-        {{-- <script type="text/javascript" src="{{asset('assets/js/leaflet/us-states.js')}}"></script> --}}
-        <script type="text/javascript" src="{{ asset('assets/js/leaflet/batu_keliang_utara.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('assets/semuafile/batukeliang.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('assets/semuafile/praya_tengah.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('assets/semuafile/kopang.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('assets/semuafile/janapria.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('assets/semuafile/jonggat.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('assets/semuafile/peringgarata.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('assets/semuafile/praya_barat_daya.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('assets/semuafile/praya_barat.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('assets/semuafile/pujut.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('assets/semuafile/praya.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('assets/semuafile/praya_timur.js') }}"></script>
-
-        <script type="text/javascript">
-            // console.log(data)
-            // -8.6184881,116.2663229
-            const map = L.map('map').setView([-8.6184881, 116.2663229], 10);
-
-            const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-            }).addTo(map);
-
-            // Control that shows state info on hover
-            const info = L.control();
-
-            info.onAdd = function(map) {
-                this._div = L.DomUtil.create('div', 'info');
-                this.update();
-                return this._div;
-            };
-            // Menambahkan base layers
-            const baseLayers = {
-                "OpenStreetMap": L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    maxZoom: 19,
-                }),
-                "OpenStreetMap.HOT": L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-                    maxZoom: 19,
-                }),
-                "OpenTopoMap": L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-                    maxZoom: 17,
-                })
-            };
-
-            // Menambahkan overlay layers
-            const overlayLayers = {
-                // "Yatim Piatu": L.layerGroup() // Anda bisa menambahkan data ke layer ini
-            };
-
-            // Membuat control layers
-            const controlLayers = L.control.layers(baseLayers, overlayLayers, {
-                position: 'bottomleft'
-            }).addTo(map);
+    <?php $__env->startPush('scripts'); ?>
+        <script src="<?php echo e(asset('assets/js/chart/chartist/chartist.js')); ?>"></script>
+        <script src="<?php echo e(asset('assets/js/chart/chartist/chartist-plugin-tooltip.js')); ?>"></script>
 
 
-
-            info.update = function(props) {
-                const contents = props ? `<b>Kecamatan: ${props.NAMOBJ}</b><br/>Jumlah Anak: ${props.density}` :
-                    "Arahkan kursor ke salah satu Kecamatan Orang:";
-                this._div.innerHTML = `<h4>Jumlah Anak Yatim Piatu di Kabupaten Lombok Tengah</h4>${contents}`;
-            };
-
-
-
-            info.addTo(map);
-
-            // Get color depending on population density value
-            function getColor(d) {
-                return d > 1000 ? '#800026' :
-                    d > 500 ? '#BD0026' :
-                    d > 200 ? '#E31A1C' :
-                    d > 100 ? '#FC4E2A' :
-                    d > 50 ? '#FD8D3C' :
-                    d > 20 ? '#FEB24C' :
-                    d > 10 ? '#FED976' : '#FFEDA0';
-            }
-
-            function style(feature) {
-                return {
-                    weight: 2,
-                    opacity: 1,
-                    color: 'white',
-                    dashArray: '3',
-                    fillOpacity: 0.7,
-                    fillColor: getColor(feature.properties.density)
-                };
-            }
-
-            function highlightFeature(e) {
-                const layer = e.target;
-
-                layer.setStyle({
-                    weight: 5,
-                    color: '#666',
-                    dashArray: '',
-                    fillOpacity: 0.7
-                });
-
-                layer.bringToFront();
-
-                info.update(layer.feature.properties);
-            }
-
-            const layers = []; // Array to store GeoJSON layers
-
-            fetch('/superadmin/geojson-data')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    // console.log(data); 
-                    data.anak.forEach(kecamatan => {
-                        const density = kecamatan.total_anak || 0; // Use default value directly
-                        const NAMOBJ = kecamatan.nama_kecamatan;
-                        const geojsonFeatures = kecamatan.nama_var;
-                        const nama_var = window[geojsonFeatures];
-                        if (nama_var && nama_var.features && nama_var.features[0] && nama_var.features[0]
-                            .properties) {
-                            nama_var.features[0].properties.density = density;
-                            nama_var.features[0].properties.status_anak = {
-                                jumlah_yatim: kecamatan.jumlah_yatim,
-                                jumlah_piatu: kecamatan.jumlah_piatu,
-                                jumlah_yatim_piatu: kecamatan.jumlah_yatim_piatu
-                            };
-                        }
-                        const layerKecamatan = L.geoJson(nama_var, {
-                            style,
-                            onEachFeature,
-                        }).addTo(map);
-                        layers.push(layerKecamatan);
-                    });
-                })
-
-
-                .catch(error => console.error('Error fetching /superadmin/geojson-data:', error));
-
-            function resetHighlight(e) {
-                const layer = e.target;
-
-                layer.setStyle({
-                    weight: 2,
-                    opacity: 1,
-                    color: 'white',
-                    dashArray: '3',
-                    fillOpacity: 0.7
-                });
-
-                info.update();
-            }
-
-            function zoomToFeature(e) {
-                map.fitBounds(e.target.getBounds());
-            }
-
-            function onEachFeature(feature, layer) {
-                let tooltipContent = "<b>" + feature.properties.NAMOBJ + "</b><br/>" +
-                    "Jumlah Anak: " + feature.properties.density + "<br/>" +
-                    "Jumlah Yatim: " + feature.properties.status_anak.jumlah_yatim + "<br/>" +
-                    "Jumlah Piatu: " + feature.properties.status_anak.jumlah_piatu + "<br/>" +
-                    "Jumlah Yatim Piatu: " + feature.properties.status_anak.jumlah_yatim_piatu;
-                layer.bindTooltip(tooltipContent);
-                layer.on({
-                    mouseover: highlightFeature,
-                    mouseout: resetHighlight,
-                    click: zoomToFeature
-                });
-            }
-
-            const legend = L.control({
-                position: 'bottomright'
-            });
-
-            legend.onAdd = function(map) {
-                const div = L.DomUtil.create('div', 'info legend');
-                const grades = [0, 10, 20, 50, 100, 200, 500, 1000];
-                const labels = [];
-                let from, to;
-
-                for (let i = 0; i < grades.length; i++) {
-                    from = grades[i];
-                    to = grades[i + 1];
-
-                    labels.push('<i style="background:' + getColor(from + 1) + '"></i> ' +
-                        from + (to ? '&ndash;' + to : '+'));
-                }
-
-                div.innerHTML = labels.join('<br>');
-                return div;
-            };
-
-            legend.addTo(map);
-        </script>
+        <script src="<?php echo e(asset('assets/js/chart/amchart/core.js')); ?>"></script>
+        <script src="<?php echo e(asset('assets/js/chart/amchart/charts.js')); ?>"></script>
+        <script src="<?php echo e(asset('assets/js/chart/amchart/animated.js')); ?>"></script>
 
 
         <script>
             $(document).ready(function() {
                 $.ajax({
-                    url: 'all_anak',
+                    url: 'json_all_anaks',
                     type: 'GET',
                     dataType: 'json',
                     success: function(data) {
+                        // console.log(data)
                         // status anak
+
                         const today = new Date();
                         const anak_dibawah_19_tahun = data['anak'].filter(anak => {
                             const tahunLahir = new Date(anak.tgl_lahir);
@@ -423,8 +166,7 @@
                         const jumlah_yatim = anak_yatim.length;
                         const jumlah_piatu = anak_piatu.length;
                         const jumlah_yatim_piatu = yatim_piatu.length;
-
-                        // Jenis kelamin
+                        // jenis kelamin
                         const laki_laki = anak_dibawah_19_tahun.filter(jenis_kelamin => jenis_kelamin
                             .jenis_kelamin == 1);
                         const perempuan = anak_dibawah_19_tahun.filter(jenis_kelamin => jenis_kelamin
@@ -436,7 +178,6 @@
                         $("#anak_piatu").append(jumlah_piatu);
                         $("#yatim_piatu").append(jumlah_yatim_piatu);
                         $("#semua").append(anak_dibawah_19_tahun.length);
-
                         // console.log(jumlah_yatim);
                         // console.log(jumlah_piatu);
                         // console.log(jumlah_yatim_piatu);
@@ -499,10 +240,10 @@
 
                         // Add data
                         chart.data = [{
-                            "jenis_kelamin": "Laki Laki",
+                            "jenis_kelamin": "Yatim",
                             "jumlah": jumlah_lk
                         }, {
-                            "jenis_kelamin": "Perempuan",
+                            "jenis_kelamin": "Piatu",
                             "jumlah": jumlah_pr
                         }];
 
@@ -539,7 +280,6 @@
 
 
                         // data kecamatan
-                        // Fungsi untuk membangun grafik
                         function buildChart(data, tahunYangDipilih, batasUsia) {
                             var chart = am4core.create("data_kecamatan", am4charts.XYChart);
                             chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
@@ -639,5 +379,7 @@
 
             })
         </script>
-    @endpush
-@endsection
+    <?php $__env->stopPush(); ?>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.pimpinan.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\ASUS\Music\skripsi\pmks_pengembangan_2-master\resources\views/pimpinan/dashboard.blade.php ENDPATH**/ ?>
