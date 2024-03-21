@@ -111,6 +111,23 @@ class AnakController extends Controller
         }
         return view('pimpinan.anak.belum_verifikasi', $data);
     }
+    public function anakPimpinan(Request $request)
+    {
+    $data = Model::join('kecamatan', 'anak.id_kecamatan', '=', 'kecamatan.id_kecamatan')
+        ->select(
+            'kecamatan.nama_kecamatan',
+            'kecamatan.nama_var',
+            Model::raw('COUNT(*) as total_anak'),
+            Model::raw('SUM(CASE WHEN anak.status_anak = 1 THEN 1 ELSE 0 END) as jumlah_yatim'),
+            Model::raw('SUM(CASE WHEN anak.status_anak = 2 THEN 1 ELSE 0 END) as jumlah_piatu'),
+            Model::raw('SUM(CASE WHEN anak.status_anak = 3 THEN 1 ELSE 0 END) as jumlah_yatim_piatu')
+        )
+        ->whereYear('anak.tgl_lahir', '>', now()->year - 19)
+        ->groupBy('kecamatan.nama_kecamatan', 'kecamatan.nama_var')
+        ->get();
+
+    return response()->json(['anak' => $data]);
+    }
     public function sudah_verifikasi(Request $request)
     {
         $data['q'] = $request->query('q');
@@ -158,6 +175,7 @@ class AnakController extends Controller
         }
         return view('pimpinan.anak.sudah_verifikasi', $data);
     }
+   
     public function export_anak(Request $request)
     {
         $data['id_survior'] = $request->query('id_survior');

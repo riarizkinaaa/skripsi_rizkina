@@ -102,19 +102,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="header-top d-sm-flex justify-content-between align-items-center">
-                            <h5>Pendidikan</h5>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div id="pendidikan" style="width: 100% ;height: 400px;">
-                        </div>
-                    </div>
-                </div>
-            </div>
+
 
 
         </div>
@@ -177,50 +165,7 @@
                         const jumlah_lk = laki_laki.length;
                         const jumlah_pr = perempuan.length;
 
-                        // Pendidikan
-                        const paud_tk = anak_dibawah_19_tahun.filter(id_pendidikan => id_pendidikan
-                            .id_pendidikan == 1);
-                        const belum_sekolah = anak_dibawah_19_tahun.filter(id_pendidikan => id_pendidikan
-                            .id_pendidikan == 2);
-                        const sdmi_sederajat = anak_dibawah_19_tahun.filter(id_pendidikan => id_pendidikan
-                            .id_pendidikan == 3);
-                        const belum_tamat_sdmi_sederajat = anak_dibawah_19_tahun.filter(id_pendidikan =>
-                            id_pendidikan.id_pendidikan == 4);
-                        const tamat_sdmi_sederajat = anak_dibawah_19_tahun.filter(id_pendidikan =>
-                            id_pendidikan.id_pendidikan == 5);
-                        const sltp_sederajat = anak_dibawah_19_tahun.filter(id_pendidikan => id_pendidikan
-                            .id_pendidikan == 6);
-                        const tamat_sltp_sederajat = anak_dibawah_19_tahun.filter(id_pendidikan =>
-                            id_pendidikan.id_pendidikan == 7);
-                        const slta_sederajat = anak_dibawah_19_tahun.filter(id_pendidikan => id_pendidikan
-                            .id_pendidikan == 8);
-                        const tamat_slta = anak_dibawah_19_tahun.filter(id_pendidikan => id_pendidikan
-                            .id_pendidikan == 9);
 
-                        const jumlah_paud_tk = paud_tk.length;
-                        const jumlah_belum_sekolah = belum_sekolah.length;
-                        const jumlah_sdmi_sederajat = sdmi_sederajat.length;
-                        const jumlah_belum_tamat_sdmi_sederajat = belum_tamat_sdmi_sederajat.length;
-                        const jumlah_tamat_sdmi_sederajat = tamat_sdmi_sederajat.length;
-                        const jumlah_sltp_sederajat = sltp_sederajat.length;
-                        const jumlah_tamat_sltp_sederajat = tamat_sltp_sederajat.length;
-                        const jumlah_slta_sederajat = slta_sederajat.length;
-                        const jumlah_tamat_slta = tamat_slta.length;
-
-                        $("#paud_tk").append(jumlah_paud_tk);
-                        $("#belum_sekolah").append(jumlah_belum_sekolah);
-                        $("#sdmi_sederajat").append(jumlah_sdmi_sederajat);
-                        $("#belum_tamat_sdmi_sederajat").append(jumlah_belum_tamat_sdmi_sederajat);
-                        $("#tamat_sdmi_sederajat").append(jumlah_tamat_sdmi_sederajat);
-                        $("#sltp_sederajat").append(jumlah_sltp_sederajat);
-                        $("#tamat_sltp_sederajat").append(jumlah_tamat_sltp_sederajat);
-                        $("#slta_sederajat").append(jumlah_slta_sederajat);
-                        $("#tamat_slta").append(jumlah_tamat_slta);
-
-                        $("#anak_yatim").append(jumlah_yatim);
-                        $("#anak_piatu").append(jumlah_piatu);
-                        $("#yatim_piatu").append(jumlah_yatim_piatu);
-                        $("#semua").append(anak_dibawah_19_tahun.length);
 
 
 
@@ -298,63 +243,6 @@
 
                         // Mengatur tata letak ulang legenda ketika ada perubahan pada grafik
                         pieSeriesJenisKelamin.slices.template.events.on("validated", function(event) {
-                            var gradient = event.target.fillModifier.gradient
-                            gradient.rotation = event.target.middleAngle + 90;
-
-                            var gradient2 = event.target.strokeModifier.gradient
-                            gradient2.rotation = event.target.middleAngle + 90;
-                        });
-
-                        // Membuat grafik Pie untuk pendidikan
-                        var chartPendidikan = am4core.create("pendidikan", am4charts.PieChart);
-
-                        // Menambahkan data
-                        chartPendidikan.data = [{
-                            "pendidikan": "PAUD/TK",
-                            "jumlah": jumlah_paud_tk
-                        }, {
-                            "pendidikan": "Belum Sekolah",
-                            "jumlah": jumlah_belum_sekolah
-                        }, {
-                            "pendidikan": "SD/MI Sederajat",
-                            "jumlah": jumlah_sdmi_sederajat
-                        }, {
-                            "pendidikan": "Belum Tamat SD/MI Sederajat",
-                            "jumlah": jumlah_belum_tamat_sdmi_sederajat
-                        }, {
-                            "pendidikan": "Tamat SD/MI Sederajat",
-                            "jumlah": jumlah_tamat_sdmi_sederajat
-                        }, {
-                            "pendidikan": "SLTP Sederajat",
-                            "jumlah": jumlah_sltp_sederajat
-                        }, {
-                            "pendidikan": "Tamat SLTP Sederajat",
-                            "jumlah": jumlah_tamat_sltp_sederajat
-                        }, {
-                            "pendidikan": "SLTA Sederajat",
-                            "jumlah": jumlah_slta_sederajat
-                        }, {
-                            "pendidikan": "Tamat SLTA",
-                            "jumlah": jumlah_tamat_slta
-                        }];
-
-                        // Konfigurasi series
-                        var pieSeriesPendidikan = chartPendidikan.series.push(new am4charts.PieSeries());
-                        pieSeriesPendidikan.dataFields.value = "jumlah";
-                        pieSeriesPendidikan.dataFields.category = "pendidikan";
-                        pieSeriesPendidikan.innerRadius = am4core.percent(50);
-                        pieSeriesPendidikan.ticks.template.disabled = true;
-                        pieSeriesPendidikan.labels.template.disabled = true;
-
-                        // Set label text to display real values instead of percentages
-                        pieSeriesPendidikan.labels.template.text = "{value} orang";
-
-                        // Menambahkan legenda
-                        chartPendidikan.legend = new am4charts.Legend();
-                        chartPendidikan.legend.position = "right";
-
-                        // Mengatur tata letak ulang legenda ketika ada perubahan pada grafik
-                        pieSeriesPendidikan.slices.template.events.on("validated", function(event) {
                             var gradient = event.target.fillModifier.gradient
                             gradient.rotation = event.target.middleAngle + 90;
 

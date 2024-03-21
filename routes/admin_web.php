@@ -123,6 +123,7 @@ Route::prefix('pimpinan')->middleware('auth', 'cek_login:2')->group(function () 
 	Route::get('sudah_verifikasi', [\App\Http\Controllers\Pimpinan\AnakController::class, 'sudah_verifikasi'])->name('sudah_verifikasi');
 
 	// data json
+	Route::get('/geojson-pimpinan', [\App\Http\Controllers\Pimpinan\AnakController::class,'anakPimpinan']);
 	Route::get('json_all_anaks', [\App\Http\Controllers\Admin\AnakController::class, 'all_anak']);
 });
 // Akhir Route Hak akses Pimpinan
@@ -155,7 +156,7 @@ Route::prefix('superadmin')->middleware('auth', 'cek_login:1')->group(function (
 
 	Route::get('anakex', [\App\Http\Controllers\Admin\AnakController::class, 'anakex']);
 	// routes/api.php
-	// Route::get('/anak/{kecamatan}', 'AnakController@show');
+	
 	// get data desa untuk json
 	Route::get('getdesa', [\App\Http\Controllers\Admin\DusunController::class, 'getdesa']);
 	Route::get('all_anak', [\App\Http\Controllers\Admin\AnakController::class, 'all_anak']);

@@ -1,5 +1,4 @@
 @extends('layouts.pimpinan.master')
-
 @section('title', 'Dashboard')
 
 @push('css')
@@ -15,6 +14,52 @@
 
         }
     </style>
+    <style>
+        .leaflet-container {
+            height: 400px;
+            width: 600px;
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
+    <style>
+        #map {
+            width: 870px;
+            height: 500px;
+        }
+
+        .info {
+            padding: 6px 8px;
+            font: 14px/16px Arial, Helvetica, sans-serif;
+            background: white;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+
+        .info h4 {
+            margin: 0 0 5px;
+            color: #777;
+        }
+
+        .legend {
+            text-align: left;
+            line-height: 18px;
+            color: #555;
+        }
+
+        .legend i {
+            width: 18px;
+            height: 18px;
+            float: left;
+            margin-right: 8px;
+            opacity: 0.7;
+        }
+    </style>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 @endpush
 @section('content')
     @yield('breadcrumb-list')
@@ -69,7 +114,7 @@
                             <i data-feather="users"></i>
                         </div>
                         <h5 id="semua"></h5>
-                        <p>Semua</p><a class="btn-arrow arrow-primary" href="javascript:void(0)"></a>
+                        <p>Semua</p><a class="btn-arrow arrow-primary" href="javascript:void(0)"> </a>
                         <div class="parrten">
 
                         </div>
@@ -115,6 +160,7 @@
                                     <option value="2022">2022</option>
                                     <option value="2023">2023</option>
                                     <option value="2024">2024</option>
+                                    <!-- Tambahkan opsi tahun lainnya jika diperlukan -->
                                 </select>
                             </div>
                         </div>
@@ -125,18 +171,229 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="header-top d-sm-flex justify-content-between align-items-center">
+                            <h5>Peta</h5>
+                        </div>
+                    </div>
+                    <div class="card-body">
+
+                        <!-- Tempatkan peta di dalam div dengan id "map" -->
+                        <div id='map'>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        @include('maps/map')
+        {{-- @include('maps/peta') --}}
     </div>
     <!-- Container-fluid Ends-->
     @push('scripts')
         <script src="{{ asset('assets/js/chart/chartist/chartist.js') }}"></script>
         <script src="{{ asset('assets/js/chart/chartist/chartist-plugin-tooltip.js') }}"></script>
-
-
         <script src="{{ asset('assets/js/chart/amchart/core.js') }}"></script>
         <script src="{{ asset('assets/js/chart/amchart/charts.js') }}"></script>
         <script src="{{ asset('assets/js/chart/amchart/animated.js') }}"></script>
+        {{-- <script type="text/javascript" src="{{asset('assets/js/leaflet/us-states.js')}}"></script> --}}
+        <script type="text/javascript" src="{{ asset('assets/js/leaflet/batu_keliang_utara.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/semuafile/batukeliang.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/semuafile/praya_tengah.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/semuafile/kopang.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/semuafile/janapria.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/semuafile/jonggat.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/semuafile/peringgarata.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/semuafile/praya_barat_daya.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/semuafile/praya_barat.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/semuafile/pujut.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/semuafile/praya.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/semuafile/praya_timur.js') }}"></script>
+
+        <script type="text/javascript">
+            // console.log(data)
+            // -8.6184881,116.2663229
+            const map = L.map('map').setView([-8.6184881, 116.2663229], 10);
+
+            const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+            }).addTo(map);
+
+            // Control that shows state info on hover
+            const info = L.control();
+
+            info.onAdd = function(map) {
+                this._div = L.DomUtil.create('div', 'info');
+                this.update();
+                return this._div;
+            };
+            // Menambahkan base layers
+            const baseLayers = {
+                "OpenStreetMap": L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                }),
+                "OpenStreetMap.HOT": L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                }),
+                "OpenTopoMap": L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 17,
+                })
+            };
+
+            // Menambahkan overlay layers
+            const overlayLayers = {
+                // "Yatim Piatu": L.layerGroup() // Anda bisa menambahkan data ke layer ini
+            };
+
+            // Membuat control layers
+            const controlLayers = L.control.layers(baseLayers, overlayLayers, {
+                position: 'bottomleft'
+            }).addTo(map);
+
+
+
+            info.update = function(props) {
+                const contents = props ? `<b>Kecamatan: ${props.NAMOBJ}</b><br/>Jumlah Anak: ${props.density}` :
+                    "Arahkan kursor ke salah satu Kecamatan Orang:";
+                this._div.innerHTML = `<h4>Jumlah Anak Yatim Piatu di Kabupaten Lombok Tengah</h4>${contents}`;
+            };
+
+
+
+            info.addTo(map);
+
+            // Get color depending on population density value
+            function getColor(d) {
+                return d > 1000 ? '#800026' :
+                    d > 500 ? '#BD0026' :
+                    d > 200 ? '#E31A1C' :
+                    d > 100 ? '#FC4E2A' :
+                    d > 50 ? '#FD8D3C' :
+                    d > 20 ? '#FEB24C' :
+                    d > 10 ? '#FED976' : '#FFEDA0';
+            }
+
+            function style(feature) {
+                return {
+                    weight: 2,
+                    opacity: 1,
+                    color: 'white',
+                    dashArray: '3',
+                    fillOpacity: 0.7,
+                    fillColor: getColor(feature.properties.density)
+                };
+            }
+
+            function highlightFeature(e) {
+                const layer = e.target;
+
+                layer.setStyle({
+                    weight: 5,
+                    color: '#666',
+                    dashArray: '',
+                    fillOpacity: 0.7
+                });
+
+                layer.bringToFront();
+
+                info.update(layer.feature.properties);
+            }
+
+            const layers = []; // Array to store GeoJSON layers
+
+            fetch('/pimpinan/geojson-pimpinan')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // console.log(data); 
+                    data.anak.forEach(kecamatan => {
+                        const density = kecamatan.total_anak || 0; // Use default value directly
+                        const NAMOBJ = kecamatan.nama_kecamatan;
+                        const geojsonFeatures = kecamatan.nama_var;
+                        const nama_var = window[geojsonFeatures];
+                        if (nama_var && nama_var.features && nama_var.features[0] && nama_var.features[0]
+                            .properties) {
+                            nama_var.features[0].properties.density = density;
+                            nama_var.features[0].properties.status_anak = {
+                                jumlah_yatim: kecamatan.jumlah_yatim,
+                                jumlah_piatu: kecamatan.jumlah_piatu,
+                                jumlah_yatim_piatu: kecamatan.jumlah_yatim_piatu
+                            };
+                        }
+                        const layerKecamatan = L.geoJson(nama_var, {
+                            style,
+                            onEachFeature,
+                        }).addTo(map);
+                        layers.push(layerKecamatan);
+                    });
+                })
+
+
+                .catch(error => console.error('Error fetching /pimpinan/geojson-pimpinan:', error));
+
+            function resetHighlight(e) {
+                const layer = e.target;
+
+                layer.setStyle({
+                    weight: 2,
+                    opacity: 1,
+                    color: 'white',
+                    dashArray: '3',
+                    fillOpacity: 0.7
+                });
+
+                info.update();
+            }
+
+            function zoomToFeature(e) {
+                map.fitBounds(e.target.getBounds());
+            }
+
+            function onEachFeature(feature, layer) {
+                let tooltipContent = "<b>" + feature.properties.NAMOBJ + "</b><br/>" +
+                    "Jumlah Anak: " + feature.properties.density + "<br/>" +
+                    "Jumlah Yatim: " + feature.properties.status_anak.jumlah_yatim + "<br/>" +
+                    "Jumlah Piatu: " + feature.properties.status_anak.jumlah_piatu + "<br/>" +
+                    "Jumlah Yatim Piatu: " + feature.properties.status_anak.jumlah_yatim_piatu;
+                layer.bindTooltip(tooltipContent);
+                layer.on({
+                    mouseover: highlightFeature,
+                    mouseout: resetHighlight,
+                    click: zoomToFeature
+                });
+            }
+
+            const legend = L.control({
+                position: 'bottomright'
+            });
+
+            legend.onAdd = function(map) {
+                const div = L.DomUtil.create('div', 'info legend');
+                const grades = [0, 10, 20, 50, 100, 200, 500, 1000];
+                const labels = [];
+                let from, to;
+
+                for (let i = 0; i < grades.length; i++) {
+                    from = grades[i];
+                    to = grades[i + 1];
+
+                    labels.push('<i style="background:' + getColor(from + 1) + '"></i> ' +
+                        from + (to ? '&ndash;' + to : '+'));
+                }
+
+                div.innerHTML = labels.join('<br>');
+                return div;
+            };
+
+            legend.addTo(map);
+        </script>
 
 
         <script>

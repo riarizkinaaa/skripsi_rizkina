@@ -153,7 +153,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="header-top d-sm-flex justify-content-between align-items-center">
-                            <h5>Data Kecamtan</h5>
+                            <h5>Data Kecamatan</h5>
                             <div class="col-md-2">
                                 <select id="tahun" class="form-select">
                                     <option value="2022">2022</option>
@@ -482,7 +482,7 @@
 
                         chart.legend = new am4charts.Legend();
                         chart.legend.position = "right";
-
+                        // pieSeries.labels.template.text = "{category}: {value.value}";
                         pieSeries.slices.template.events.on("validated", function(event) {
                             var gradient = event.target.fillModifier.gradient
                             gradient.rotation = event.target.middleAngle + 90;
