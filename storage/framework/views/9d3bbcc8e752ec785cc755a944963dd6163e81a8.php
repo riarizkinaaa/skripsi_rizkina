@@ -102,9 +102,6 @@
                     </div>
                 </div>
             </div>
-
-
-
         </div>
         
     </div>
@@ -112,8 +109,6 @@
     <?php $__env->startPush('scripts'); ?>
         <script src="<?php echo e(asset('assets/js/chart/chartist/chartist.js')); ?>"></script>
         <script src="<?php echo e(asset('assets/js/chart/chartist/chartist-plugin-tooltip.js')); ?>"></script>
-
-
         <script src="<?php echo e(asset('assets/js/chart/amchart/core.js')); ?>"></script>
         <script src="<?php echo e(asset('assets/js/chart/amchart/charts.js')); ?>"></script>
         <script src="<?php echo e(asset('assets/js/chart/amchart/animated.js')); ?>"></script>
@@ -165,9 +160,13 @@
                         const jumlah_lk = laki_laki.length;
                         const jumlah_pr = perempuan.length;
 
-
-
-
+                        $("#anak_yatim").append(anak_yatim.length + " Orang")
+                        $("#anak_piatu").append(anak_piatu.length + " Orang")
+                        $("#yatim_piatu").append(yatim_piatu.length + " Orang")
+                        $("#semua").append(pendata.length + " Orang")
+                        // $("#jumlah_yatim").append(jumlah_yatim.toFixed(2) + " %")
+                        // $("#jumlah_piatu").append(jumlah_piatu.toFixed(2) + " %")
+                        // $("#jumlah_yatim_piatu").append(jumlah_yatim_piatu.toFixed(2) + " %")
 
                         // Themes begin
                         am4core.useTheme(am4themes_animated);

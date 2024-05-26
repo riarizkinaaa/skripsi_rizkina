@@ -34,7 +34,7 @@ class AnakController extends Controller
         $data['kelas_pendidikan'] = KelasPendidikan::pluck('kelas_pendidikan', 'id_kelas_pendidikan');
         $data['desa'] = Desa::pluck('nama_desa', 'id_desa');
         $today = Carbon::now();
-        $nineteenYearsAgo = $today->copy()->subYears(19)->startOfDay();
+        $nineteenYearsAgo = $today->copy()->subYears(20)->startOfDay();
 
         $query = Model::join('survior', 'survior.id_survior', '=', 'anak.id_survior')
             ->join('pendidikan', 'pendidikan.id_pendidikan', '=', 'anak.id_pendidikan')

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Survior;
-
+use App\Jobs\UpdateUserAge;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Anak as Model;
@@ -50,7 +50,7 @@ class AnakController extends Controller
         ->join('kecamatan', 'kecamatan.id_kecamatan', '=', 'anak.id_kecamatan')
         ->join('desa', 'desa.id_desa', '=', 'anak.id_desa')
         ->where('anak.id_survior', $request->session()->get('id_survior'))
-        ->where('anak.usia', '<', 19)
+        ->where('anak.usia', '<', 20)
         ->where(function ($query) use ($data) {
             $query->where('nomor_nik', 'like', '%' . $data['q'] . '%');
             // $data = Anak::where('usia', '<', 19)->get();
@@ -77,17 +77,20 @@ class AnakController extends Controller
 
     $data['jumlah_anak_per_desa'] = $jumlah_anak_desa;
 
-        foreach ($data['models'] as $anak) {
-            $tanggal_lahir = Carbon::parse($anak->tgl_lahir);
-            $usia = $tanggal_lahir->diff(Carbon::now())->format('%y th, %m bln, %d h');
-            $anak->usia = $usia;
-        }
+    foreach ($data['models'] as $anak) {
+    $tanggal_lahir = Carbon::parse($anak->tgl_lahir);
+    $diff = $tanggal_lahir->diff(Carbon::now());
+    $usia = $diff->format('%y th, %m bln, %d h');
+    
+    $anak->usia = $usia;
+}
+
         // foreach ($data['models'] as $anak) {
         //     $anak->umur = Carbon::parse($anak->tanggal_lahir)->age;
         // }
 
         // dd($data['models']);
-        return view('survior.' . $this->viewIndex, $data);
+        return view ('survior.' . $this->viewIndex, $data);
     }
     
     public function create()
@@ -130,7 +133,7 @@ class AnakController extends Controller
             $hari_ini = new \DateTime("today");
             $usia = $hari_ini->diff($ulang_tahun)->y;
     
-            if ($usia > 19) {
+            if ($usia > 20) {
                 return redirect()
                     ->route('anak_pendata.create')
                     ->withInput()
@@ -238,7 +241,7 @@ class AnakController extends Controller
         $hari_ini = new \DateTime("today");
         $usia = $hari_ini->diff($ulang_tahun)->y;
 
-        if ($usia > 19) {
+        if ($usia > 20) {
             return redirect()
                 ->route('anak_pendata.create')
                 ->withInput()
@@ -456,7 +459,7 @@ class AnakController extends Controller
                         $hari_ini = new \DateTime("today");
                         $usia = $hari_ini->diff($ulang_tahun)->y;
                 
-                        if ($usia > 19) {
+                        if ($usia > 20) {
                             return redirect()
                                 ->route('anak_pendata.create')
                                 ->withInput()

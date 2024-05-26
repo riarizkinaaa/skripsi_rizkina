@@ -54,7 +54,7 @@ class AnakController extends Controller
             ->join('kelas_pendidikan', 'kelas_pendidikan.id_kelas_pendidikan', '=', 'anak.id_kelas_pendidikan')
             ->join('kecamatan', 'kecamatan.id_kecamatan', '=', 'anak.id_kecamatan')
             ->join('desa', 'desa.id_desa', '=', 'anak.id_desa')
-            ->where('anak.usia', '<', 19)
+            ->where('anak.usia', '<', 20)
             ->where(function ($query) use ($data) {
                 $query->where('nomor_nik', 'like', '%' . $data['q'] . '%');
             });
@@ -138,7 +138,7 @@ class AnakController extends Controller
             Model::raw('SUM(CASE WHEN anak.status_anak = 2 THEN 1 ELSE 0 END) as jumlah_piatu'),
             Model::raw('SUM(CASE WHEN anak.status_anak = 3 THEN 1 ELSE 0 END) as jumlah_yatim_piatu')
         )
-        ->whereYear('anak.tgl_lahir', '>', now()->year - 19)
+        ->whereYear('anak.tgl_lahir', '>', now()->year - 20)
         ->groupBy('kecamatan.nama_kecamatan', 'kecamatan.nama_var')
         ->get();
 
@@ -167,7 +167,7 @@ class AnakController extends Controller
         $hari_ini = new \DateTime("today");
         $usia = $hari_ini->diff($ulang_tahun)->y;
 
-        if ($usia > 19) {
+        if ($usia > 20) {
             return redirect()
                 ->route('anak_pendata.create')
                 ->withInput()
@@ -277,7 +277,7 @@ class AnakController extends Controller
         $hari_ini = new \DateTime("today");
         $usia = $hari_ini->diff($ulang_tahun)->y;
 
-        if ($usia > 19) {
+        if ($usia > 20) {
             return redirect()
                 ->route('anak_pendata.create')
                 ->withInput()
