@@ -10,9 +10,9 @@
     <meta name="keywords"
         content="admin template, viho admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="pixelstrap">
-    <link rel="icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
-    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
-    <title>@yield('title')</title>
+    <link rel="icon" href="<?php echo e(asset('assets/images/favicon.png')); ?>" type="image/x-icon">
+    <link rel="shortcut icon" href="<?php echo e(asset('assets/images/favicon.png')); ?>" type="image/x-icon">
+    <title><?php echo $__env->yieldContent('title'); ?></title>
     <!-- Google font-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link
@@ -25,7 +25,7 @@
         href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
         rel="stylesheet">
     <!-- Font Awesome-->
-    @includeIf('layouts.survior.partials.css')
+    <?php if ($__env->exists('layouts.survior.partials.css')) echo $__env->make('layouts.survior.partials.css', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 </head>
 
 <body>
@@ -53,37 +53,45 @@
                     <div class="col-md-8 mt-5">
 
                         <div class="card">
-                            @section('content')
-                                @if (session('success'))
+                            <?php $__env->startSection('content'); ?>
+                                <?php if(session('success')): ?>
                                     <div class="alert alert-primary outline-2x" role="alert">
-                                        <p>{{ session('success') }}</p>
+                                        <p><?php echo e(session('success')); ?></p>
                                     </div>
-                                @endif
+                                <?php endif; ?>
 
-                                @if (session('error'))
+                                <?php if(session('error')): ?>
                                     <div class="alert alert-danger outline-2x " role="alert">
-                                        {{ session('error') }}
+                                        <?php echo e(session('error')); ?>
+
                                     </div>
-                                @endif
+                                <?php endif; ?>
                                 <div class="card-header">
                                     <h5>Lengkapi Data Anda!</h5>
                                 </div>
                                 <div class="card-body">
-                                    <form class="needs-validation" novalidate="" action="{{ route('data_survior.store') }}"
+                                    <form class="needs-validation" novalidate="" action="<?php echo e(route('data_survior.store')); ?>"
                                         method="post" enctype="multipart/form-data">
-                                        @csrf
+                                        <?php echo csrf_field(); ?>
                                         <div class="row">
                                             <div class="mb-3 row">
                                                 <input type="hidden" id="id_userlog" name="id_userlog"
-                                                    value="{{ Auth::user()->id }}">
+                                                    value="<?php echo e(Auth::user()->id); ?>">
                                                 <label for="username" class="col-sm-3 col-form-label">Username</label>
                                                 <div class="col-sm-9">
                                                     <input class="form-control" id="username" type="text"
                                                         name="username" autocomplete="off"
-                                                        value="{{ Auth::user()->username }}">
-                                                    @error('username')
-                                                        <p class="help-block">{{ $message }}</p>
-                                                    @enderror
+                                                        value="<?php echo e(Auth::user()->username); ?>">
+                                                    <?php $__errorArgs = ['username'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                                        <p class="help-block"><?php echo e($message); ?></p>
+                                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
@@ -91,9 +99,16 @@
                                                 <div class="col-sm-9">
                                                     <input class="password form-control" id="password" type="password"
                                                         name="password" placeholder="" autocomplete="off">
-                                                    @error('password')
-                                                        <p class="help-block">{{ $message }}</p>
-                                                    @enderror
+                                                    <?php $__errorArgs = ['password'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                                        <p class="help-block"><?php echo e($message); ?></p>
+                                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
@@ -101,9 +116,16 @@
                                                 <div class="col-sm-9">
                                                     <input class="nama form-control" id="nama" type="text"
                                                         name="nama" placeholder="" autocomplete="off">
-                                                    @error('nama')
-                                                        <p class="help-block">{{ $message }}</p>
-                                                    @enderror
+                                                    <?php $__errorArgs = ['nama'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                                        <p class="help-block"><?php echo e($message); ?></p>
+                                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
@@ -111,9 +133,16 @@
                                                 <div class="col-sm-9">
                                                     <input class=" form-control" id="nik" type="number"
                                                         name="nik" autocomplete="off">
-                                                    @error('nik')
-                                                        <p class="help-block">{{ $message }}</p>
-                                                    @enderror
+                                                    <?php $__errorArgs = ['nik'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                                        <p class="help-block"><?php echo e($message); ?></p>
+                                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                                 </div>
                                             </div>
 
@@ -122,9 +151,16 @@
                                                 <div class="col-sm-9">
                                                     <input class="email form-control" id="email" type="email"
                                                         name="email" autocomplete="off">
-                                                    @error('email')
-                                                        <p class="help-block">{{ $message }}</p>
-                                                    @enderror
+                                                    <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                                        <p class="help-block"><?php echo e($message); ?></p>
+                                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
@@ -132,9 +168,16 @@
                                                 <div class="col-sm-9">
                                                     <input class="no_hp form-control" id="no_hp" type="number"
                                                         name="no_hp" required autocomplete="off">
-                                                    @error('no_hp')
-                                                        <p class="help-block">{{ $message }}</p>
-                                                    @enderror
+                                                    <?php $__errorArgs = ['no_hp'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                                        <p class="help-block"><?php echo e($message); ?></p>
+                                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
@@ -142,9 +185,16 @@
                                                 <div class="col-sm-9">
                                                     <input class="form-control" id="alamat" type="text"
                                                         name="alamat" autocomplete="off">
-                                                    @error('alamat')
-                                                        <p class="help-block">{{ $message }}</p>
-                                                    @enderror
+                                                    <?php $__errorArgs = ['alamat'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                                        <p class="help-block"><?php echo e($message); ?></p>
+                                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
@@ -152,15 +202,22 @@
                                                 <div class="col-sm-9">
                                                     <select name="kecamatan" id="kecamatan" class="form-control">
                                                         <option value="">--Pilih Kecamatan--</option>
-                                                        @forelse ($kecamatan as $kec)
-                                                            <option value="{{ $kec->id_kecamatan }}">
-                                                                {{ $kec->nama_kecamatan }}</option>
+                                                        <?php $__empty_1 = true; $__currentLoopData = $kecamatan; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $kec): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                                                            <option value="<?php echo e($kec->id_kecamatan); ?>">
+                                                                <?php echo e($kec->nama_kecamatan); ?></option>
 
-                                                        @empty
-                                                        @endforelse
-                                                        @error('kecamatan')
-                                                            <p class="help-block">{{ $message }}</p>
-                                                        @enderror
+                                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                                                        <?php endif; ?>
+                                                        <?php $__errorArgs = ['kecamatan'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                                            <p class="help-block"><?php echo e($message); ?></p>
+                                                        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                                     </select>
                                                 </div>
                                             </div>
@@ -168,9 +225,16 @@
                                                 <label for="" class="col-sm-3 col-form-label">Desa</label>
                                                 <div class="col-sm-9">
                                                     <select name="desa" id="desa" class="form-control">
-                                                        @error('desa')
-                                                            <p class="help-block">{{ $message }}</p>
-                                                        @enderror
+                                                        <?php $__errorArgs = ['desa'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                                            <p class="help-block"><?php echo e($message); ?></p>
+                                                        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                                     </select>
                                                 </div>
                                             </div>
@@ -179,9 +243,16 @@
                                                 <div class="col-sm-9">
                                                     <input class="form-control" id="no_sk" type="text"
                                                         name="no_sk" autocomplete="off">
-                                                    @error('no_sk')
-                                                        <p class="help-block">{{ $message }}</p>
-                                                    @enderror
+                                                    <?php $__errorArgs = ['no_sk'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                                        <p class="help-block"><?php echo e($message); ?></p>
+                                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
@@ -190,9 +261,16 @@
                                                 <div class="col-sm-9">
                                                     <input class="file_sk form-control" id="file_sk" type="file"
                                                         name="file_sk" autocomplete="off" accept="pdf">
-                                                    @error('file_sk')
-                                                        <p class="help-block">{{ $message }}</p>
-                                                    @enderror
+                                                    <?php $__errorArgs = ['file_sk'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                                        <p class="help-block"><?php echo e($message); ?></p>
+                                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                                 </div>
                                             </div>
 
@@ -215,7 +293,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-6 footer-copyright">
-                            <p class="mb-0">Copyright {{ date('Y') }} © Tim Dev Diskominfo Loteng All rights
+                            <p class="mb-0">Copyright <?php echo e(date('Y')); ?> © Tim Dev Diskominfo Loteng All rights
                                 reserved.</p>
                         </div>
 
@@ -225,7 +303,7 @@
 
         </div>
         <!-- latest jquery-->
-        @includeIf('layouts.survior.partials.js')
+        <?php if ($__env->exists('layouts.survior.partials.js')) echo $__env->make('layouts.survior.partials.js', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         <script>
             $(document).ready(function() {
 
@@ -259,3 +337,4 @@
     </body>
 
     </html>
+<?php /**PATH C:\Users\ASUS\Music\pmks_pengembangan_2-master\resources\views/survior/data_survior/formadd.blade.php ENDPATH**/ ?>

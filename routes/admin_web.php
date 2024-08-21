@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Auth;
 Route::prefix('survior')->middleware('auth', 'cek_login:4')->group(function () {
 	//dashboard
 	Route::get('dashboard_survior', [\App\Http\Controllers\Survior\SurviorController::class, 'dashboard'])->name('dashboard_survior');
+	// Route::get('dashboard_survior', [\App\Http\Controllers\Survior\SurviorController::class, 'dashboard'])->name('survior.dashboard_survior');
 
 	Route::resource('anak_pendata', \App\Http\Controllers\Survior\AnakController::class);
 	Route::resource('formal', \App\Http\Controllers\Survior\PrestasiFormalController::class);

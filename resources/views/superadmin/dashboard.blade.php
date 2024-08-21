@@ -358,7 +358,7 @@
 
             function onEachFeature(feature, layer) {
                 let tooltipContent = "<b>" + feature.properties.NAMOBJ + "</b><br/>" +
-                    "Total Anak: " + feature.properties.density + "<br/>" +
+                    "Total anak: " + feature.properties.density + "<br/>" +
                     "Jumlah Yatim: " + feature.properties.status_anak.jumlah_yatim + "<br/>" +
                     "Jumlah Piatu: " + feature.properties.status_anak.jumlah_piatu + "<br/>" +
                     "Jumlah Yatim Piatu: " + feature.properties.status_anak.jumlah_yatim_piatu;

@@ -1,9 +1,9 @@
 <header class="main-nav">
     <div class="sidebar-user text-center">
         <a href="user-profile.html">
-            <p class="mb-0 font-roboto">Selamat datang, {{ Auth::user()->username }}</p>
+            <p class="mb-0 font-roboto">Selamat datang, <?php echo e(Auth::user()->username); ?></p>
             <h6 class="mt-3 f-14 f-w-600 text-uppercase">
-                @php
+                <?php
                     // Dapatkan id_kecamatan dari sesi
                     $id_kecamatan = Session::get('id_kecamatan');
                     // Ambil data kecamatan berdasarkan id_kecamatan
@@ -14,26 +14,26 @@
                     } else {
                         echo 'Kecamatan tidak ditemukan';
                     }
-                @endphp
+                ?>
             </h6>
         </a>
-        @php
+        <?php
             $id_role = Auth::user()->id_role;
-        @endphp
+        ?>
         <p class="mb-0 font-roboto">
-            @if ($id_role == 1)
+            <?php if($id_role == 1): ?>
                 Superadmin
-            @elseif($id_role == 2)
+            <?php elseif($id_role == 2): ?>
                 Pimpinan
-            @elseif($id_role == 3)
+            <?php elseif($id_role == 3): ?>
                 Verifikator
-            @elseif($id_role == 4)
+            <?php elseif($id_role == 4): ?>
                 Pendata
-            @elseif($id_role == 5)
+            <?php elseif($id_role == 5): ?>
                 Koordinator
-            @endif
+            <?php endif; ?>
         </p>
-        {{-- <p class="mb-0 font-roboto">koordinator</p> --}}
+        
 
     </div>
     <nav class="mt-3">
@@ -47,18 +47,18 @@
                                 aria-hidden="true"></i></div>
                     </li>
                     <li class="dropdown">
-                        <a class="nav-link link-nav menu-title {{ routeActive('data_koordinator.index') }}"
-                            href="{{ route('data_koordinator.index') }}"><i
+                        <a class="nav-link link-nav menu-title <?php echo e(routeActive('data_koordinator.index')); ?>"
+                            href="<?php echo e(route('data_koordinator.index')); ?>"><i
                                 data-feather="home"></i><span>Dashboard</span></a>
                     </li>
                     <li class="dropdown">
-                        <a class="nav-link link-nav menu-title {{ routeActive('anak_koordinator.index') }}"
-                            href="{{ route('anak_koordinator.index') }}"><i
+                        <a class="nav-link link-nav menu-title <?php echo e(routeActive('anak_koordinator.index')); ?>"
+                            href="<?php echo e(route('anak_koordinator.index')); ?>"><i
                                 data-feather="check-square"></i><span>Verifikasi</span></a>
                     </li>
                     <li class="dropdown">
-                        <a class="nav-link link-nav menu-title {{ request()->routeIs('sdh-verifikasi') ? 'active' : '' }}"
-                            href="{{ route('sdh-verifikasi') }}"><i data-feather="users"></i><span>Anak Yatim</span></a>
+                        <a class="nav-link link-nav menu-title <?php echo e(request()->routeIs('sdh-verifikasi') ? 'active' : ''); ?>"
+                            href="<?php echo e(route('sdh-verifikasi')); ?>"><i data-feather="users"></i><span>Anak Yatim</span></a>
                     </li>
                 </ul>
 
@@ -67,3 +67,4 @@
         </div>
     </nav>
 </header>
+<?php /**PATH C:\Users\ASUS\Music\pmks_pengembangan_2-master\resources\views/layouts/koordinator/partials/sidebar.blade.php ENDPATH**/ ?>

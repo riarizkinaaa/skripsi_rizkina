@@ -50,6 +50,8 @@ class SurviorController extends Controller
             'desa' => 'required',
             'file_sk' => 'required|mimes:pdf',
         ]);
+        // dd($request);
+        
 
         // Mengecek Email
         $email = $request->email;
@@ -58,7 +60,7 @@ class SurviorController extends Controller
         // dd($cek_email);
         if ($cek_email) {
             return redirect()
-                ->route('survior.create')
+                ->route('survior.index')
                 ->withInput()
                 ->with([
                     'error' => 'Email already in use, please try again'
@@ -122,7 +124,7 @@ class SurviorController extends Controller
         ]);
         if ($survior) {
             return redirect()
-                ->route('survior.dashboard_survior')
+                ->route('dashboard_survior')
                 ->with([
                     'success' => 'New Pendata has been created successfully, Please Login Again!'
                 ]);

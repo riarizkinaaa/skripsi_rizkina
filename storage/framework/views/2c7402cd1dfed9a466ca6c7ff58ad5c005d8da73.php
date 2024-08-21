@@ -303,7 +303,7 @@
 
             const layers = []; // Array to store GeoJSON layers
 
-            fetch('/superadmin/geojson-data')
+            fetch('/pimpinan/geojson-pimpinan')
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
@@ -335,7 +335,7 @@
                 })
 
 
-                .catch(error => console.error('Error fetching /superadmin/geojson-data:', error));
+                .catch(error => console.error('Error fetching /pimpinan/geojson-pimpinan:', error));
 
             function resetHighlight(e) {
                 const layer = e.target;
@@ -357,7 +357,7 @@
 
             function onEachFeature(feature, layer) {
                 let tooltipContent = "<b>" + feature.properties.NAMOBJ + "</b><br/>" +
-                    "Total anak: " + feature.properties.density + "<br/>" +
+                    "Jumlah Anak: " + feature.properties.density + "<br/>" +
                     "Jumlah Yatim: " + feature.properties.status_anak.jumlah_yatim + "<br/>" +
                     "Jumlah Piatu: " + feature.properties.status_anak.jumlah_piatu + "<br/>" +
                     "Jumlah Yatim Piatu: " + feature.properties.status_anak.jumlah_yatim_piatu;
@@ -398,15 +398,17 @@
         <script>
             $(document).ready(function() {
                 $.ajax({
-                    url: 'all_anak',
+                    url: 'json_all_anaks',
                     type: 'GET',
                     dataType: 'json',
                     success: function(data) {
+                        // console.log(data)
                         // status anak
+
                         const today = new Date();
                         const anak_dibawah_19_tahun = data['anak'].filter(anak => {
                             const tahunLahir = new Date(anak.tgl_lahir);
-                            const tahunLahirPlus19 = new Date(tahunLahir.getFullYear() + 20,
+                            const tahunLahirPlus19 = new Date(tahunLahir.getFullYear() + 19,
                                 tahunLahir.getMonth(), tahunLahir.getDate());
                             return tahunLahirPlus19 >
                                 today; // Filter anak yang masih di bawah 19 tahun
@@ -422,8 +424,7 @@
                         const jumlah_yatim = anak_yatim.length;
                         const jumlah_piatu = anak_piatu.length;
                         const jumlah_yatim_piatu = yatim_piatu.length;
-
-                        // Jenis kelamin
+                        // jenis kelamin
                         const laki_laki = anak_dibawah_19_tahun.filter(jenis_kelamin => jenis_kelamin
                             .jenis_kelamin == 1);
                         const perempuan = anak_dibawah_19_tahun.filter(jenis_kelamin => jenis_kelamin
@@ -435,7 +436,6 @@
                         $("#anak_piatu").append(jumlah_piatu);
                         $("#yatim_piatu").append(jumlah_yatim_piatu);
                         $("#semua").append(anak_dibawah_19_tahun.length);
-
                         // console.log(jumlah_yatim);
                         // console.log(jumlah_piatu);
                         // console.log(jumlah_yatim_piatu);
@@ -482,7 +482,7 @@
 
                         chart.legend = new am4charts.Legend();
                         chart.legend.position = "right";
-                        // pieSeries.labels.template.text = "{category}: {value.value}";
+
                         pieSeries.slices.template.events.on("validated", function(event) {
                             var gradient = event.target.fillModifier.gradient
                             gradient.rotation = event.target.middleAngle + 90;
@@ -498,10 +498,10 @@
 
                         // Add data
                         chart.data = [{
-                            "jenis_kelamin": "Laki Laki",
+                            "jenis_kelamin": "Yatim",
                             "jumlah": jumlah_lk
                         }, {
-                            "jenis_kelamin": "Perempuan",
+                            "jenis_kelamin": "Piatu",
                             "jumlah": jumlah_pr
                         }];
 
@@ -538,7 +538,6 @@
 
 
                         // data kecamatan
-                        // Fungsi untuk membangun grafik
                         function buildChart(data, tahunYangDipilih, batasUsia) {
                             var chart = am4core.create("data_kecamatan", am4charts.XYChart);
                             chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
@@ -617,7 +616,7 @@
 
                         // Inisialisasi grafik dengan tahun 2024 saat halaman dimuat
                         var tahunYangDipilih = 2024;
-                        var batasUsia = 20;
+                        var batasUsia = 19;
                         buildChart(data, tahunYangDipilih, batasUsia);
 
                         // Tambahkan event listener untuk menangani perubahan pada elemen select
@@ -641,4 +640,4 @@
     <?php $__env->stopPush(); ?>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('layouts.admin.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\ASUS\Music\pmks_pengembangan_2-master\resources\views/superadmin/dashboard.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.pimpinan.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\ASUS\Music\pmks_pengembangan_2-master\resources\views/pimpinan/dashboard.blade.php ENDPATH**/ ?>
